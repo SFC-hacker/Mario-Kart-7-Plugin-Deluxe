@@ -1,8 +1,12 @@
 #include <CTRPluginFramework.hpp>
 #include "cheats.hpp"
 
-namespace CTRPluginFramework {
-    const std::vector<States> g_statesjapan = {
+namespace CTRPluginFramework
+{
+	// Note: Adding the missing countries (below in green) results in a console freeze at game launch due to a faulty memory allocation.
+    
+	const std::vector<States> g_statesjapan =
+	{
 		{ "Not Set", 0 },
 		{ "Tokyo", 2 },
 		{ "Hokkaido", 3 },
@@ -53,11 +57,13 @@ namespace CTRPluginFramework {
 		{ "Okinawa", 0x30 }
 	};
 
-	const std::vector<States> g_statesanguilla = {
+	const std::vector<States> g_statesanguilla =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesantigua = {
+	const std::vector<States> g_statesantigua =
+	{
 		{ "Not Set", 0 },
 		{ "Saint John", 2 },
 		{ "Barbuda", 3 },
@@ -68,7 +74,8 @@ namespace CTRPluginFramework {
 		{ "Saint Philip", 8 }
 	};
 	
-	const std::vector<States> g_statesargentina = {
+	const std::vector<States> g_statesargentina =
+	{
 		{ "Not Set", 0 },
 		{ "Distrito Federal", 2 },
 		{ "Buenos Aires", 3 },
@@ -96,19 +103,23 @@ namespace CTRPluginFramework {
 		{ "Tucumán", 0x19 }
 	};
 	
-	const std::vector<States> g_statesaruba = {
+	const std::vector<States> g_statesaruba =
+	{
 		{ "Not Set", 0 }		
 	};
 	
-	const std::vector<States> g_statesbahamas = {
+	const std::vector<States> g_statesbahamas =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesbarbados = {
+	const std::vector<States> g_statesbarbados =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesbelize = {
+	const std::vector<States> g_statesbelize =
+	{
 		{ "Not Set", 0 },
 		{ "Cayo", 2 },
 		{ "Belize", 3 },
@@ -118,7 +129,8 @@ namespace CTRPluginFramework {
 		{ "Toldeo", 7 }
 	};
 	
-	const std::vector<States> g_statesbolivia = {
+	const std::vector<States> g_statesbolivia =
+	{
 		{ "Not Set", 0 },
 		{ "La Paz", 2 },
 		{ "Chuquisaca", 3 },
@@ -131,7 +143,8 @@ namespace CTRPluginFramework {
 		{ "Tarija", 0xA }		
 	};
 	
-	const std::vector<States> g_statesbrazil = {
+	const std::vector<States> g_statesbrazil =
+	{
 		{ "Not Set", 0 },
 		{ "Distrito Federal", 2 },
 		{ "Acre", 3 },
@@ -162,11 +175,13 @@ namespace CTRPluginFramework {
 		{ "Tocantins", 0x1C }
 	};
 	
-	const std::vector<States> g_statesbritish = {
+	const std::vector<States> g_statesbritish =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statescanada = {
+	const std::vector<States> g_statescanada =
+	{
 		{ "Not Set", 0 },
 		{ "Ontario", 2 },
 		{ "Alberta", 3 },
@@ -183,11 +198,13 @@ namespace CTRPluginFramework {
 		{ "Nunavut", 0xE }
 	};
 	
-	const std::vector<States> g_statescayman = {
+	const std::vector<States> g_statescayman =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateschile = {
+	const std::vector<States> g_stateschile =
+	{
 		{ "Not Set", 0 },
 		{ "Región Metropolitana", 2 },
 		{ "Valparaíso", 3 },
@@ -204,7 +221,8 @@ namespace CTRPluginFramework {
 		{ "Tarapacá", 0xE }
 	};
 	
-	const std::vector<States> g_statescolombia = {
+	const std::vector<States> g_statescolombia =
+	{
 		{ "Not Set", 0 },
 		{ "Distrito Capital", 2 },
 		{ "Cundinamarca", 3 },
@@ -242,7 +260,8 @@ namespace CTRPluginFramework {
 		
 	};
 	
-	const std::vector<States> g_statescosta = {
+	const std::vector<States> g_statescosta =
+	{
 		{ "Not Set", 0 },
 		{ "San José", 2 },
 		{ "Alajuela", 3 },
@@ -253,11 +272,13 @@ namespace CTRPluginFramework {
 		{ "Puntarenas", 8 }
 	};
 	
-	const std::vector<States> g_statesdominica = {
+	const std::vector<States> g_statesdominica =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesdominican = {
+	const std::vector<States> g_statesdominican =
+	{
 		{ "Not Set", 0 },
 		{ "Distrito Nacional", 2 },
 		{ "Azua", 3 },
@@ -291,7 +312,8 @@ namespace CTRPluginFramework {
 		{ "San Cristóbal", 0x1F }
 	};
 	
-	const std::vector<States> g_statesecuador = {
+	const std::vector<States> g_statesecuador =
+	{
 		{ "Not Set", 0 },
 		{ "Pichincha", 2 },
 		{ "Galápagos", 3 },
@@ -319,7 +341,8 @@ namespace CTRPluginFramework {
 		{ "Santo Domingo...", 0x19 }
 	};
 	
-	const std::vector<States> g_statesel = {
+	const std::vector<States> g_statesel =
+	{
 		{ "Not Set", 0 },
 		{ "San Salvador", 2 },
 		{ "Ahuachapán", 3 },
@@ -337,19 +360,23 @@ namespace CTRPluginFramework {
 		{ "Usulután", 0xF }
 	};
 	
-	const std::vector<States> g_statesfrench = {
+	const std::vector<States> g_statesfrench =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesgrenada = {
+	const std::vector<States> g_statesgrenada =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesguadeloupe = {
+	const std::vector<States> g_statesguadeloupe =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesguatemala = {
+	const std::vector<States> g_statesguatemala =
+	{
 		{ "Not Set", 0 },
 		{ "Guatemala", 2 },
 		{ "Alta Verapaz", 3 },
@@ -375,7 +402,8 @@ namespace CTRPluginFramework {
 		{ "Zacapa", 0x17 }
 	};
 	
-	const std::vector<States> g_statesguyana = {
+	const std::vector<States> g_statesguyana =
+	{
 		{ "Not Set", 0 },
 		{ "Demerara-Mahaica", 2 },
 		{ "Barima-Waini", 3 },
@@ -389,7 +417,8 @@ namespace CTRPluginFramework {
 		{ "Upper Takutu...", 0xB }
 	};
 	
-	const std::vector<States> g_stateshaiti = {
+	const std::vector<States> g_stateshaiti =
+	{
 		{ "Not Set", 0 },
 		{ "Ouest", 2 },
 		{ "Nord-Ouest", 3 },
@@ -403,7 +432,8 @@ namespace CTRPluginFramework {
 		{ "Nippes", 0xB }
 	};
 	
-	const std::vector<States> g_stateshonduras = {
+	const std::vector<States> g_stateshonduras =
+	{
 		{ "Not Set", 0 },
 		{ "Francisco Morazán", 2 },
 		{ "Atlántida", 3 },
@@ -426,7 +456,8 @@ namespace CTRPluginFramework {
 		
 	};
 	
-	const std::vector<States> g_statesjamaica = {
+	const std::vector<States> g_statesjamaica =
+	{
 		{ "Not Set", 0 },
 		{ "Saint Thomas", 2 },
 		{ "Clarendon", 3 },
@@ -444,11 +475,13 @@ namespace CTRPluginFramework {
 		{ "Kingston", 0xF }
 	};
 	
-	const std::vector<States> g_statesmartinique = {
+	const std::vector<States> g_statesmartinique =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmexico = {
+	const std::vector<States> g_statesmexico =
+	{
 		{ "Not Set", 0 },
 		{ "Distrito Federal", 2 },
 		{ "Aguascalientes", 3 },
@@ -484,15 +517,18 @@ namespace CTRPluginFramework {
 		{ "Zacatecas", 0x21 }
 	};
 	
-	const std::vector<States> g_statesmontserrat = {
+	const std::vector<States> g_statesmontserrat =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesnetherlandsantilles = {
+	const std::vector<States> g_statesnetherlandsantilles =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesnicaragua = {
+	const std::vector<States> g_statesnicaragua =
+	{
 		{ "Not Set", 0 },
 		{ "Managua", 2 },
 		{ "Boaco", 3 },
@@ -513,7 +549,8 @@ namespace CTRPluginFramework {
 		{ "Atlántico Sur", 0x12 }
 	};
 	
-	const std::vector<States> g_statespanama = {
+	const std::vector<States> g_statespanama =
+	{
 		{ "Not Set", 0 },
 		{ "Panamá", 2 },
 		{ "Bocas Del Toro", 3 },
@@ -527,7 +564,8 @@ namespace CTRPluginFramework {
 		{ "Veraguas", 0xB }
 	};
 	
-	const std::vector<States> g_statesparaguay = {
+	const std::vector<States> g_statesparaguay =
+	{
 		{ "Not Set", 0 },
 		{ "Central", 2 },
 		{ "Alto Paraná", 3 },
@@ -549,7 +587,8 @@ namespace CTRPluginFramework {
 		{ "Boquerón", 0x13 }
 	};
 	
-	const std::vector<States> g_statesperu = {
+	const std::vector<States> g_statesperu =
+	{
 		{ "Not Set", 0 },
 		{ "Lima", 2 },
 		{ "Amazonas", 3 },
@@ -578,7 +617,8 @@ namespace CTRPluginFramework {
 		{ "Ucayali", 0x1A }
 	};
 	
-	const std::vector<States> g_statesstkitts = {
+	const std::vector<States> g_statesstkitts =
+	{
 		{ "Not Set", 0 },
 		{ "Saint George...", 2 },
 		{ "Christ Church...", 3 },
@@ -596,15 +636,18 @@ namespace CTRPluginFramework {
 		{ "Trinity Palmetto...", 0xF }
 	};
 	
-	const std::vector<States> g_statesstlucia = {
+	const std::vector<States> g_statesstlucia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesstvincent = {
+	const std::vector<States> g_statesstvincent =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statessuriname = {
+	const std::vector<States> g_statessuriname =
+	{
 		{ "Not Set", 0 },
 		{ "Paramaribo", 2 },
 		{ "Brokopondo", 3 },
@@ -618,7 +661,8 @@ namespace CTRPluginFramework {
 		{ "Wanica", 0xB }
 	};
 	
-	const std::vector<States> g_statestrinidad = {
+	const std::vector<States> g_statestrinidad =
+	{
 		{ "Not Set", 0 },
 		{ "Port-Of-Spain", 2 },
 		{ "Arima", 3 },
@@ -635,11 +679,13 @@ namespace CTRPluginFramework {
 		{ "Point Fortin", 0xE }
 	};
 	
-	const std::vector<States> g_statesturks = {
+	const std::vector<States> g_statesturks =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesunitedstates = {
+	const std::vector<States> g_statesunitedstates =
+	{
 		{ "Not Set", 0 },
 		{ "District Of Columbia", 2 },
 		{ "Alaska", 3 },
@@ -695,7 +741,8 @@ namespace CTRPluginFramework {
 		{ "Puerto Rico", 0x35 }
 	};
 	
-	const std::vector<States> g_statesuruguay = {
+	const std::vector<States> g_statesuruguay =
+	{
 		{ "Not Set", 0 },
 		{ "Montevideo", 2 },
 		{ "Artigas", 3 },
@@ -718,11 +765,13 @@ namespace CTRPluginFramework {
 		{ "Treinta Y Tres", 0x14 }
 	};
 	
-	const std::vector<States> g_statesusvirgin = {
+	const std::vector<States> g_statesusvirgin =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesvenezuela = {
+	const std::vector<States> g_statesvenezuela =
+	{
 		{ "Not Set", 0 },
 		{ "Distrito Federal", 2 },
 		{ "Amazonas", 3 },
@@ -751,7 +800,8 @@ namespace CTRPluginFramework {
 		{ "Vargas", 0x1A }
 	};
 	
-	const std::vector<States> g_statesalbania = {
+	const std::vector<States> g_statesalbania =
+	{
 		{ "Not Set", 0 },
 		{ "Tirana", 2 },
 		{ "Berat", 3 },
@@ -767,7 +817,8 @@ namespace CTRPluginFramework {
 		{ "Vlorë", 0xD }
 	};
 	
-	const std::vector<States> g_statesaustralia = {
+	const std::vector<States> g_statesaustralia =
+	{
 		{ "Not Set", 0 },
 		{ "Australian Capital...", 2 },
 		{ "New South Wales", 3 },
@@ -779,7 +830,8 @@ namespace CTRPluginFramework {
 		{ "Western Australia", 9 }
 	};
 	
-	const std::vector<States> g_statesaustria = {
+	const std::vector<States> g_statesaustria =
+	{
 		{ "Not Set", 0 },
 		{ "Vienna", 2 },
 		{ "Burgenland", 3 },
@@ -792,25 +844,29 @@ namespace CTRPluginFramework {
 		{ "Vorarlberg", 0xA }
 	};
 	
-	const std::vector<States> g_statesbelgium = {
+	const std::vector<States> g_statesbelgium =
+	{
 		{ "Not Set", 0 },
 		{ "Brussels Region", 2 },
 		{ "Flanders", 3 },
 		{ "Wallonia", 4 }
 	};
 	
-	const std::vector<States> g_statesbosnia = {
+	const std::vector<States> g_statesbosnia =
+	{
 		{ "Not Set", 0 },
 		{ "Federation Of...", 2 },
 		{ "Republika Srpska", 3 },
 		{ "Brčko District", 4 }
 	};
 	
-	const std::vector<States> g_statesbotswana = {
+	const std::vector<States> g_statesbotswana =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesbulgaria = {
+	const std::vector<States> g_statesbulgaria =
+	{
 		{ "Not Set", 0 },
 		{ "Sofia City", 2 },
 		{ "Sofia Province", 3 },
@@ -842,7 +898,8 @@ namespace CTRPluginFramework {
 		{ "Vrasta", 0x1D }
 	};
 	
-	const std::vector<States> g_statescroatia = {
+	const std::vector<States> g_statescroatia =
+	{
 		{ "Not Set", 0 },
 		{ "Zagreb", 6 },
 		{ "Bjelovar...", 7 },
@@ -867,11 +924,13 @@ namespace CTRPluginFramework {
 		{ "Zagreb County", 0x1A }
 	};
 	
-	const std::vector<States> g_statescyprus = {
+	const std::vector<States> g_statescyprus =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesczech = {
+	const std::vector<States> g_statesczech =
+	{
 		{ "Not Set", 0 },
 		{ "Prague", 2 },
 		{ "Central Bohemian...", 3 },
@@ -889,7 +948,8 @@ namespace CTRPluginFramework {
 		{ "Vysočina Region", 0xF }
 	};
 	
-	const std::vector<States> g_statesdenmark = {
+	const std::vector<States> g_statesdenmark =
+	{
 		{ "Not Set", 0 },
 		{ "Greenland", 0x12 },
 		{ "Capital Region...", 0x13 },
@@ -900,11 +960,13 @@ namespace CTRPluginFramework {
 		{ "Faroe Islands", 0x18 }
 	};
 	
-	const std::vector<States> g_statesestonia = {
+	const std::vector<States> g_statesestonia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesfinland = {
+	const std::vector<States> g_statesfinland =
+	{
 		{ "Not Set", 0 },
 		{ "Uusima / Nyland", 8 },
 		{ "Lappi / Lapland", 9 },
@@ -928,11 +990,12 @@ namespace CTRPluginFramework {
 		{ "Ahvenanmaa...", 0x1B }
 	};
 	
-	const std::vector<States> g_statesfrance = {
+	const std::vector<States> g_statesfrance =
+	{
 		{ "Not Set", 0 },
 		{ "Île-De-France", 2 },
 		{ "Alsace", 3 },
-		{ "Aquitaine", 4 },
+		{ "Aquitaine :D", 4 },
 		{ "Auvergne", 5 },
 		{ "Lower Normandy", 6 },
 		{ "Burgundy", 7 },
@@ -958,7 +1021,8 @@ namespace CTRPluginFramework {
 		{ "Réunion", 0x1B }
 	};
 	
-	const std::vector<States> g_statesgermany = {
+	const std::vector<States> g_statesgermany =
+	{
 		{ "Not Set", 0 },
 		{ "Berlin", 2 },
 		{ "Hesse", 3 },
@@ -978,7 +1042,8 @@ namespace CTRPluginFramework {
 		{ "Thunringia", 0x11 }
 	};
 	
-	const std::vector<States> g_statesgreece = {
+	const std::vector<States> g_statesgreece =
+	{
 		{ "Not Set", 0 },
 		{ "Attica", 2 },
 		{ "Central Greece", 3 },
@@ -995,7 +1060,8 @@ namespace CTRPluginFramework {
 		{ "West Macedonia", 0xE }
 	};
 	
-	const std::vector<States> g_stateshungary = {
+	const std::vector<States> g_stateshungary =
+	{
 		{ "Not Set", 0 },
 		{ "Budapest", 2 },
 		{ "Bács-Kiskun County", 3 },
@@ -1019,11 +1085,13 @@ namespace CTRPluginFramework {
 		{ "Zala County", 0x15 }
 	};
 	
-	const std::vector<States> g_statesiceland = {
+	const std::vector<States> g_statesiceland =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesireland = {
+	const std::vector<States> g_statesireland =
+	{
 		{ "Not Set", 0 },
 		{ "Dublin", 2 },
 		{ "County Carlow", 0xA },
@@ -1053,7 +1121,8 @@ namespace CTRPluginFramework {
 		{ "County Wicklow", 0x22 }
 	};
 	
-	const std::vector<States> g_statesitaly = {
+	const std::vector<States> g_statesitaly =
+	{
 		{ "Not Set", 0 },
 		{ "Lazio", 2 },
 		{ "Aosta Valley", 3 },
@@ -1077,11 +1146,13 @@ namespace CTRPluginFramework {
 		{ "Sardinia", 0x15 }
 	};
 	
-	const std::vector<States> g_stateslatvia = {
+	const std::vector<States> g_stateslatvia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateslesotho = {
+	const std::vector<States> g_stateslesotho =
+	{
 		{ "Not Set", 0 },
 		{ "Maseru", 2 },
 		{ "Berea", 3 },
@@ -1095,11 +1166,13 @@ namespace CTRPluginFramework {
 		{ "Thaba-Tseka", 0xB }
 	};
 	
-	const std::vector<States> g_statesliechtenstein = {
+	const std::vector<States> g_statesliechtenstein =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateslithuania = {
+	const std::vector<States> g_stateslithuania =
+	{
 		{ "Not Set", 0 },
 		{ "Vilnius", 2 },
 		{ "Alytus", 3 },
@@ -1113,31 +1186,38 @@ namespace CTRPluginFramework {
 		{ "Utena", 0xB }
 	};
 	
-	const std::vector<States> g_statesluxembourg = {
+	const std::vector<States> g_statesluxembourg =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmacedonia = {
+	const std::vector<States> g_statesmacedonia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmalta = {
+	const std::vector<States> g_statesmalta =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmontenegro = {
+	const std::vector<States> g_statesmontenegro =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmozambique = {
+	const std::vector<States> g_statesmozambique =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesnamibia = {
+	const std::vector<States> g_statesnamibia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesnetherlands = {
+	const std::vector<States> g_statesnetherlands =
+	{
 		{ "Not Set", 0 },
 		{ "North Holland", 2 },
 		{ "Drenthe", 3 },
@@ -1153,7 +1233,8 @@ namespace CTRPluginFramework {
 		{ "Zeeland", 0xD }
 	};
 	
-	const std::vector<States> g_statesnewzealand = {
+	const std::vector<States> g_statesnewzealand =
+	{
 		{ "Not Set", 0 },
 		{ "Wellington", 2 },
 		{ "Auckland", 3 },
@@ -1166,7 +1247,8 @@ namespace CTRPluginFramework {
 		{ "Northland", 0xA }
 	};
 	
-	const std::vector<States> g_statesnorway = {
+	const std::vector<States> g_statesnorway =
+	{
 		{ "Not Set", 0 },
 		{ "Oslo", 7 },
 		{ "Akershus", 8 },
@@ -1190,7 +1272,8 @@ namespace CTRPluginFramework {
 		{ "Svalbard", 0x1A }
 	};
 	
-	const std::vector<States> g_statespoland = {
+	const std::vector<States> g_statespoland =
+	{
 		{ "Not Set", 0 },
 		{ "Masovia", 2 },
 		{ "Lower Silesia", 3 },
@@ -1210,7 +1293,8 @@ namespace CTRPluginFramework {
 		{ "Western Pomerania", 0x11 }
 	};
 	
-	const std::vector<States> g_statesportugal = {
+	const std::vector<States> g_statesportugal =
+	{
 		{ "Not Set", 0 },
 		{ "Lisbon", 2 },
 		{ "Madeira", 7 },
@@ -1234,7 +1318,8 @@ namespace CTRPluginFramework {
 		{ "Viseu", 0x19 }
 	};
 	
-	const std::vector<States> g_statesromania = {
+	const std::vector<States> g_statesromania =
+	{
 		{ "Not Set", 0 },
 		{ "Bucharest", 2 },
 		{ "Alba", 3 },
@@ -1280,7 +1365,8 @@ namespace CTRPluginFramework {
 		{ "Vrancea", 0x2B }
 	};
 	
-	const std::vector<States> g_statesrussia = {
+	const std::vector<States> g_statesrussia =
+	{
 		{ "Not Set", 0 },
 		{ "Moscow City", 9 },
 		{ "Adygey", 0xA },
@@ -1367,11 +1453,13 @@ namespace CTRPluginFramework {
 		{ "Zabaykal'ye", 0x5B }
 	};
 	
-	const std::vector<States> g_statesserbia = {
+	const std::vector<States> g_statesserbia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesslovakia = {
+	const std::vector<States> g_statesslovakia =
+	{
 		{ "Not Set", 0 },
 		{ "Bratislava", 2 },
 		{ "Banská Bystrica", 3 },
@@ -1383,11 +1471,13 @@ namespace CTRPluginFramework {
 		{ "Trnava", 9 }
 	};
 	
-	const std::vector<States> g_statesslovenia = {
+	const std::vector<States> g_statesslovenia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statessouthafrica = {
+	const std::vector<States> g_statessouthafrica =
+	{
 		{ "Not Set", 0 },
 		{ "Gauteng", 2 },
 		{ "Western Cape", 3 },
@@ -1400,7 +1490,8 @@ namespace CTRPluginFramework {
 		{ "Limpopo", 0xA }
 	};
 	
-	const std::vector<States> g_statesspain = {
+	const std::vector<States> g_statesspain =
+	{
 		{ "Not Set", 0 },
 		{ "Madrid", 2 },
 		{ "Andalusia", 3 },
@@ -1423,7 +1514,8 @@ namespace CTRPluginFramework {
 		{ "Melilla", 0x14 }
 	};
 	
-	const std::vector<States> g_statesswaziland = {
+	const std::vector<States> g_statesswaziland =
+	{
 		{ "Not Set", 0 },
 		{ "Hhohho", 2 },
 		{ "Lubombo", 3 },
@@ -1431,7 +1523,8 @@ namespace CTRPluginFramework {
 		{ "Shiselweni", 5 }
 	};
 	
-	const std::vector<States> g_statessweden = {
+	const std::vector<States> g_statessweden =
+	{
 		{ "Not Set", 0 },
 		{ "Stockholm County", 2 },
 		{ "Skåne County", 3 },
@@ -1456,7 +1549,8 @@ namespace CTRPluginFramework {
 		{ "Halland County", 0x16 }
 	};
 	
-	const std::vector<States> g_statesswitzerland = {
+	const std::vector<States> g_statesswitzerland =
+	{
 		{ "Not Set", 0 },
 		{ "Bern", 2 },
 		{ "Aargau", 4 },
@@ -1486,7 +1580,8 @@ namespace CTRPluginFramework {
 		{ "Nidwalden", 0x1C }
 	};
 	
-	const std::vector<States> g_statesturkey = {
+	const std::vector<States> g_statesturkey =
+	{
 		{ "Not Set", 0 },
 		{ "Ankara", 2 },
 		{ "Istanbul", 3 },
@@ -1501,7 +1596,8 @@ namespace CTRPluginFramework {
 		{ "Kayseri", 0xC }
 	};
 	
-	const std::vector<States> g_statesunitedkingdom = {
+	const std::vector<States> g_statesunitedkingdom =
+	{
 		{ "Not Set", 0 },
 		{ "England", 2 },
 		{ "Scotland", 4 },
@@ -1509,75 +1605,93 @@ namespace CTRPluginFramework {
 		{ "Northern Ireland", 6 }
 	};
 	
-	const std::vector<States> g_stateszambia = {
+	const std::vector<States> g_stateszambia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateszimbabwe = {
+	const std::vector<States> g_stateszimbabwe =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesazerbaijan = {
+	const std::vector<States> g_statesazerbaijan =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmauritania = {
+	const std::vector<States> g_statesmauritania =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmali = {
+	const std::vector<States> g_statesmali =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesniger = {
+	const std::vector<States> g_statesniger =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateschad = {
+	const std::vector<States> g_stateschad =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statessudan = {
+	const std::vector<States> g_statessudan =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateseritrea = {
+	const std::vector<States> g_stateseritrea =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesdjibouti = {
+	const std::vector<States> g_statesdjibouti =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statessomalia = {
+	const std::vector<States> g_statessomalia =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesandorra = {
+	const std::vector<States> g_statesandorra =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesgibraltar = {
+	const std::vector<States> g_statesgibraltar =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesguernsey = {
+	const std::vector<States> g_statesguernsey =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesisleofman = {
+	const std::vector<States> g_statesisleofman =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesjersey = {
+	const std::vector<States> g_statesjersey =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesmonaco = {
+	const std::vector<States> g_statesmonaco =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statestaiwan = {
+	const std::vector<States> g_statestaiwan =
+	{
 		{ "Not Set", 0 },
 		{ "Taipei", 2 },
 		{ "Kaohsiung City", 3 },
@@ -1592,7 +1706,8 @@ namespace CTRPluginFramework {
 		{ "Miaoli County", 0xC }
 	};
 	
-	const std::vector<States> g_stateskorea = {
+	const std::vector<States> g_stateskorea =
+	{
 		{ "Not Set", 0 },
 		{ "Seoul", 2 },
 		{ "Busan", 3 },
@@ -1612,31 +1727,38 @@ namespace CTRPluginFramework {
 		{ "Jeju", 0x11 }
 	};
 	
-	const std::vector<States> g_stateshongkong = {
+	const std::vector<States> g_stateshongkong =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	/*const std::vector<States> g_statesmacao = {
+	/*const std::vector<States> g_statesmacao =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesindonesia = {
+	const std::vector<States> g_statesindonesia =
+	{
 		{ "Not Set", 0 }
 	};*/
 	
-	const std::vector<States> g_statessingapore = {
+	const std::vector<States> g_statessingapore =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	/*const std::vector<States> g_statesthailand = {
+	/*const std::vector<States> g_statesthailand =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesphilippines = {
+	const std::vector<States> g_statesphilippines =
+	{
 		{ "Not Set", 0 }
 	};*/
 	
-	const std::vector<States> g_statesmalaysia = {
+	const std::vector<States> g_statesmalaysia =
+	{
 		{ "Not Set", 0 },
 		{ "Kuala Lumpur", 2 },
 		{ "Johor", 3 },
@@ -1656,7 +1778,8 @@ namespace CTRPluginFramework {
 		{ "Putrajaya", 0x11 }
 	};
 	
-	const std::vector<States> g_stateschina = {
+	const std::vector<States> g_stateschina =
+	{
 		{ "Not Set", 0 },
 		{ "Beijing", 2 },
 		{ "Chongqing", 3 },
@@ -1691,7 +1814,8 @@ namespace CTRPluginFramework {
 		{ "Xizang", 0x21 }
 	};
 	
-	const std::vector<States> g_statesunitedarab = {
+	const std::vector<States> g_statesunitedarab =
+	{
 		{ "Not Set", 0 },
 		{ "Abu Dhabi", 2 },
 		{ "Ajman", 3 },
@@ -1702,7 +1826,8 @@ namespace CTRPluginFramework {
 		{ "Umm Al Qaywayn", 8 }
 	};
 	
-	const std::vector<States> g_statesindia = {
+	const std::vector<States> g_statesindia =
+	{
 		{ "Not Set", 0 },
 		{ "Delhi", 2 },
 		{ "Andaman...", 3 },
@@ -1740,23 +1865,28 @@ namespace CTRPluginFramework {
 		{ "Other", 0x25 }
 	};
 	
-	/*const std::vector<States> g_statesegypt = {
+	/*const std::vector<States> g_statesegypt =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesoman = {
+	const std::vector<States> g_statesoman =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesqatar = {
+	const std::vector<States> g_statesqatar =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_stateskuwait = {
+	const std::vector<States> g_stateskuwait =
+	{
 		{ "Not Set", 0 }
 	};*/
 	
-	const std::vector<States> g_statessaudi = {
+	const std::vector<States> g_statessaudi =
+	{
 		{ "Not Set", 0 },
 		{ "Ar Riyad", 2 },
 		{ "Al Bahah", 3 },
@@ -1773,27 +1903,38 @@ namespace CTRPluginFramework {
 		{ "Al Jawf", 0xE }
 	};
 	
-	/*const std::vector<States> g_statessyria = {
+	/*const std::vector<States> g_statessyria =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesbahrain = {
+	const std::vector<States> g_statesbahrain =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesjordan = {
+	const std::vector<States> g_statesjordan =
+	{
 		{ "Not Set", 0 }
 	};*/
 	
-	const std::vector<States> g_statessan = {
+	const std::vector<States> g_statessan =
+	{
 		{ "Not Set", 0 }
 	};
 	
-	const std::vector<States> g_statesvatican = {
+	const std::vector<States> g_statesvatican =
+	{
 		{ "Not Set", 0 }
 	};
+	
+	/*const std::vector<States> g_statesbermuda =
+	{
+		{ "Not Set", 0 }
+	};*/
 
-	const std::vector<Countries> g_flags = {
+	const std::vector<Countries> g_flags =
+	{
 		{ "Japan", 1, g_statesjapan },
 		{ "Anguilla", 8, g_statesanguilla },
 		{ "Antigua And Barbuda", 9, g_statesantigua },
@@ -1925,6 +2066,7 @@ namespace CTRPluginFramework {
 		//{ "Bahrain (!)", 0xB0, g_statesbahrain },
 		//{ "Jordan (!)", 0xB1, g_statesjordan },
 		{ "San Marino", 0xB8, g_statessan },
-		{ "Vatican City", 0xB9, g_statesvatican }
+		{ "Vatican City", 0xB9, g_statesvatican },
+		//{ "Bermuda", 0xBA, g_statesbermuda }
 	};
 }

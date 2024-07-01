@@ -1,7 +1,9 @@
 #include <CTRPluginFramework.hpp>
 #include "cheats.hpp"
 
-namespace CTRPluginFramework {
+namespace CTRPluginFramework
+{
+	// Note: Learn why adding other coordinates could render the plugin unusable in the countries.cpp file).
 	
 	const std::vector<Coordinates> g_coords =
 	{
