@@ -9,8 +9,8 @@ namespace CTRPluginFramework
     void InitMenu(PluginMenu &menu);
     int main(void)
     {
-		PluginMenu *menu = new PluginMenu(Color::LimeGreen << "Mario Kart 7 Plugin Deluxe", 3, 0, 3, "- Public plugin for Mario Kart 7 EUR/JPN/USA.\n- Made for games with 1.2 online update.");
-		OSD::Notify("ver: 3.0.3", Color::Yellow);
+		PluginMenu *menu = new PluginMenu(Color::LimeGreen << "Mario Kart 7 Plugin Deluxe", 3, 0, 4, "- Public plugin for Mario Kart 7 EUR/JPN/USA.\n- Made for games with 1.2 online update.");
+		OSD::Notify("ver: 3.0.4", Color::Yellow);
 		
 		menu->SynchronizeWithFrame(true);
 		menu->SetHexEditorState(true);
@@ -35,13 +35,14 @@ namespace CTRPluginFramework
 		kartcodes->Append(subfolder);//13
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Abilities ]", "" << Color::LimeGreen << "Codes for abilities.");
+		subfolder->Append(new MenuEntry("Instant Respawn", instantRespawn, "This code allows you to respawn quickly."));
 		subfolder->Append(new MenuEntry("Better Turning Sensitivity", turningSpeed, "This code allows you to turn faster when pressing A + B."));
 		subfolder->Append(new MenuEntry("Control Bullet Bill", controlKiller, "This code allows you to control the movements of your Bullet Bill, it allows the item use too." << Color::LimeGreen << "\nActivators:\n-D-Pad Right + Y = Enable Bullet Bill\n-D-Pad Left + Y = Disable Bullet Bill\n-B = Stop Bullet Bill\n-A = Accelerate"));
 		subfolder->Append(new MenuEntry("Item Use In Bullet", itemsKiller, "This code allows you to use items while you are in a Bullet Bill."));
 		subfolder->Append(new MenuEntry("Rapidfire", rapidfire, "This code allows you to throw items very fast." << Color::LimeGreen << "\nActivators:\n-X = Fast Fire\n-Left = Normal Fire"));
 		subfolder->Append(new MenuEntry("Look Backward", lookBack, "This code allows you to look backward." << Color::LimeGreen << "\nActivators:\n-B + Y = Backward View\n-A = Classic View"));
 		subfolder->Append(new MenuEntry("Item Despawner", itemDespawner, "You can remove your current spinning or trailed item. Works with Red Shell, Green Shell, Banana, Bob-Omb and all triple items."<< Color::LimeGreen <<"\nActivators:\n-Left = Remove current item\n-X = Throw item."));
-		subfolder->Append(new MenuEntry("Drive Out Of Bounds", driveBounds, "This code allows you to drive out of the boundaries." << Color::LimeGreen << "\nActivator:\n-Y = Enabled\n-Start = Disabled."));
+		subfolder->Append(new MenuEntry("Drive Out Of Bounds", driveBounds, "This code allows you to drive out of the boundaries. This code is not compatible with the Bullet Bill." << Color::LimeGreen << "\nActivator:\n-Y = Enabled\n-Start = Disabled"));
 		subfolder->Append(new MenuEntry("Disable Wall Collisions", disableWalls, "This code allows you to drive through walls. Use it with Drive Out Of Bounds code."));
 		subfolder->Append(new MenuEntry("Trick Anywhere", trickAnywhere, "This code allows you to perform tricks anywhere." << Color::LimeGreen << "\nActivator:\n-R = Trick"));
 		subfolder->Append(new MenuEntry("Disable Lucky-7 Mushroom Acceleration", disableLuckyShroom, "This code allows you to disable the acceleration from the Mushroom in the Lucky-7."));
@@ -61,7 +62,7 @@ namespace CTRPluginFramework
 		subfolder->Append(new MenuEntry("Instant Acceleration", instantAcceleration, "This code allows you to reach the max speed instantly." << Color::LimeGreen << "\nActivator:\n-A"));
 		subfolder->Append(new MenuEntry("Instant Backward Acceleration", instantBackAcceleration, "This code allows you to reach the max backward speed instantly." << Color::LimeGreen << "\nActivator:\n-B"));
 		subfolder->Append(new MenuEntry("Instant Stop", instantStop, "This code allows you to stop the kart instantly." << Color::LimeGreen << "\nActivators:\n-A + B"));
-		subfolder->Append(new MenuEntry("Configurable Speed", forceSpeed, SpeedSetter, "This code allows you to choose your speed." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice." << Color::Red << "\nThis code is restricted online!"));
+		subfolder->Append(new MenuEntry("Configurable Speed", forceSpeed, SpeedSetter, "This code allows you to choose your speed." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice."));
 		subfolder->Append(new MenuEntry("Configurable Backward Speed", forceBack, BackSetter, "This code allows you to choose your backwards speed." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice."));
 		subfolder->Append(new MenuEntry("Automatic Kart Acceleration", autoForward, AutomSetter, "This code allows you to accelerate automatically as in Mario Kart Tour." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice."));
 		subfolder->Append(new MenuEntry("Fast Reverse Speeds", fastReverse, "This code allows you to get high backward speeds." << Color::LimeGreen << "\nActivator:\n-B"));
@@ -69,14 +70,14 @@ namespace CTRPluginFramework
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Movements ]", "" << Color::LimeGreen << "Codes for movements.");
 		subfolder->Append(new MenuEntry("Moonjump", moonjump, "This code allows you to jump high." << Color::LimeGreen << "\nActivators:\n-Start + R = Go up\n-Start + L = Go down"));
-		subfolder->Append(new MenuEntry("Freefly", freefly, "This code allows you to move freely. The X,Y,Z axis rely on your position at the beginning of the race." << Color::LimeGreen << "\nActivators:\n-R = Go up\n-L = Go Down\n-Y = Stop\n-D-Pad Up = Move Forward\n-D-Pad Down = Move Backward\n-D-Pad Left = Move Left\n-D-Pad Right = Move Right" << Color::Red << "\nThis code is restricted online!"));
-		subfolder->Append(new MenuEntry("Touch Screen Kart Teleporter", touchCode, "This code allows you to teleport your kart anywhere on the map using your stylus. The bottom screen map is locked on the extended map view. Use this code with Out Of Bounds for a better experience" << Color::LimeGreen << "\nActivator:\n-Stylus = Move" << Color::Red << "\nThis code is restricted online!"));
+		subfolder->Append(new MenuEntry("Freefly", freefly, "This code allows you to move freely. The X,Y,Z axis rely on your position at the beginning of the race." << Color::LimeGreen << "\nActivators:\n-R = Go up\n-L = Go Down\n-Y = Stop\n-D-Pad Up = Move Forward\n-D-Pad Down = Move Backward\n-D-Pad Left = Move Left\n-D-Pad Right = Move Right"));
+		subfolder->Append(new MenuEntry("Touch Screen Kart Teleporter", touchCode, "This code allows you to teleport your kart anywhere on the map using your stylus. The bottom screen map is locked on the extended map view. Use this code with Out Of Bounds for a better experience" << Color::LimeGreen << "\nActivator:\n-Stylus = Move"));
 		subfolder->Append(new MenuEntry("Stalking Hack", stalking, "This code allows you to stalk anyone during races or battles." << Color::LimeGreen << "\nActivators:\n-Y + Right = Increase Player\n-Y + Left = Decrease Player\n-Y + Up = Stalk\n-Hold Y = Stalk Temporarily\n-Y + Down = Disable Code"));
 		subfolder->Append(new MenuEntry("Drive Anywhere", driveAnywhere, "This code allows you to drive in the air as if you were on the ground.This code is a remake of Supastarrio's code for MKDS." << Color::LimeGreen << "\nActivators:\n-Start + D-Pad Left = Disable\n-Start + D-Pad Right = Enable\n-R + Y = Go Up\n-L + Y = Go Down"));
 		subfolder->Append(new MenuEntry("Aimbot", aimbot, "This code allows you to aim onto a specific player." << Color::LimeGreen << "\nActivators:\n-D-Pad Up = Increase Player\n-D-Pad Down = Reset"));
-		subfolder->Append(new MenuEntry("Blue Shell Ride", blueShellRide, "This code allows you to ride a Blue Shell." << Color::LimeGreen << "\nActivator:\n-D-Pad Left" << Color::Red << "\nThis code is restricted online!"));
+		subfolder->Append(new MenuEntry("Blue Shell Ride", blueShellRide, "This code allows you to ride a Blue Shell." << Color::LimeGreen << "\nActivator:\n-D-Pad Left"));
 		subfolder->Append(new MenuEntry("Configurable Gravity", gravityForce, GravitySetter, "This code allows you to choose among three types of gravity."));
-		subfolder->Append(new MenuEntry("Save Slot Teleporter", saveSlotTeleporter, "This code allows you to teleport your kart between 2 places." << Color::LimeGreen << "\nActivators:\n-Start + X = Save Current Position\n-Start + Y = Load Saved Position" << Color::Red << "\nThis code is restricted online!"));
+		subfolder->Append(new MenuEntry("Save Slot Teleporter", saveSlotTeleporter, "This code allows you to teleport your kart between 2 places." << Color::LimeGreen << "\nActivators:\n-Start + X = Save Current Position\n-Start + Y = Load Saved Position"));
 		kartcodes->Append(subfolder);//9
 		menu->Append(kartcodes);
 		
@@ -85,8 +86,8 @@ namespace CTRPluginFramework
 		subfolder->Append(new MenuEntry("Item Cycler", itemWheelDeluxe, "This code allows you to cycle between every items." << Color::LimeGreen << "\nActivators:\n-D-Pad Right = Next Item\n-D-Pad Left = Previous Item"));
 		subfolder->Append(new MenuEntry("Classic Item Hack", masterItemHack, "This code allows you to get items on command. The first person view is off." << Color::LimeGreen << "\nActivators N3DS:\n-D-Pad Up = Green Shell\n-D-Pad Down = Bob-Omb\n-D-Pad Left = Lucky-7\n-D-Pad Right = Red Shell\n-Start = Lightning\n-A + B = Bullet Bill\n-Y = Blue Shell"));
 		subfolder->Append(new MenuEntry("Single Shell Randomizer", randomShell, "This code allows you to get a random a random Green or Red Shell constantly."));
-		subfolder->Append(new MenuEntry("Configurable Item", forceItem, ItemSetter, "This code allows you to choose the item you want in the item slot." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice." << Color::Red << "\nThis code is restricted online!"));
-		subfolder->Append(new MenuEntry("Configurable Item Box", forceBox, ItemBoxSetter, "This code allows you to force the item you will get from item boxes." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice." << Color::Red << "\nThis code is restricted online!"));
+		subfolder->Append(new MenuEntry("Configurable Item", forceItem, ItemSetter, "This code allows you to choose the item you want in the item slot." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice."));
+		subfolder->Append(new MenuEntry("Configurable Item Box", forceBox, ItemBoxSetter, "This code allows you to force the item you will get from item boxes." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice."));
 		subfolder->Append(new MenuEntry("Cycle Completely Random Item", randomItems, "This code allows you to get a random item constantly."));
 		subfolder->Append(new MenuEntry("Truly Random Items", trulyRandomItems, "This code allows you to get random items, regardless of your position."));
 		itemcodes->Append(subfolder);//7
@@ -110,7 +111,7 @@ namespace CTRPluginFramework
 		itemcodes->Append(subfolder);//6
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Item Speeds ]", "" << Color::LimeGreen << "Codes item speeds.");
-		subfolder->Append(new MenuEntry("Bullet Speed Modifier", killerSpeed, "This code allows you to control the speed of the Bullet Bill." << Color::LimeGreen << "\nActivators:\n-X = Very Fast\n-B = Stopped\n-A = Normal Speed" << Color::Red << "\nThis code is restricted online!"));
+		subfolder->Append(new MenuEntry("Bullet Speed Modifier", killerSpeed, "This code allows you to control the speed of the Bullet Bill." << Color::LimeGreen << "\nActivators:\n-X = Very Fast\n-B = Stopped\n-A = Normal Speed"));
 		subfolder->Append(new MenuEntry("Fast Blue Shell", fastBlueShell, "This code allows you to increase the speed of the Blue Shell."));
 		subfolder->Append(new MenuEntry("Stopped Blue Shell", stoppedBlueShell, "This code allows you to stop the Blue Shell." << Color::Red << "\nThis code is disabled online!"));
 		subfolder->Append(new MenuEntry("Instant Blue Shell Hit", blueShellInstantHit, "The Blue Shell hits the first player quickly."));
@@ -143,7 +144,7 @@ namespace CTRPluginFramework
 		
 		racecodes = new MenuFolder(""<< Color::Yellow << "[ Race Codes ]", "" << Color::LimeGreen << "Codes for races.");
 		racecodes->Append(new MenuEntry("Drive During Countdown", driveDuringCountdown, "This code allows you to drive during the countdown."));
-		racecodes->Append(new MenuEntry("No Disconnect", NoDC, "This code allows you to drive backward and stay stopped during online races without being disconnected." << Color::Red << "\nThis code is restricted online!"));
+		racecodes->Append(new MenuEntry("No Disconnect", NoDC, "This code allows you to drive backward and stay stopped during online races without being disconnected."));
 		racecodes->Append(new MenuEntry("Race Time Displayer", TimeIndicator, "This code allows you to check the time left during races."));
 		racecodes->Append(new MenuEntry("Remove Lakitu", removeLakitu, "This code allows you to remove Lakitu during races and battles."));
 		racecodes->Append(new MenuEntry("No Countdown", noCountdown, "This code allows you to remove the countdown."));
@@ -158,7 +159,7 @@ namespace CTRPluginFramework
 		
 		battlecodes = new MenuFolder(""<< Color::Yellow << "[ Battle Codes ]", "" << Color::LimeGreen << "Codes for battles.");
 		battlecodes->Append(new MenuEntry("Configurable Blinking Effect", blinkingEffect, BlinkSetter, "This code allows you to prevent the crash occuring when a Blue Shell goes out of the boundaries."));
-		battlecodes->Append(new MenuEntry("Anti Blue Shell Crash", antiKouraB, "This code allows you to prevent the crash occuring when a Blue Shell goes out of the boundaries in battle mode." << Color::Red << "\nThis code is restricted online!"));
+		battlecodes->Append(new MenuEntry("Anti Blue Shell Crash", antiKouraB, "This code allows you to prevent the crash occuring when a Blue Shell goes out of the boundaries in battle mode."));
 		battlecodes->Append(new MenuEntry("Coin Score Modifier", battleCoin, "You can control your coin score." << Color::LimeGreen << "\nActivators:\n-D-Pad Right + R = Increase Score\n-D-Pad Left + R = Decrease Score" << Color::Red << "\nBefore the end, your score is set to 0 to prevent unfair win online."));
 		battlecodes->Append(new MenuEntry("Balloon Score Modifier", battleBalloon, "You can control your balloon score." << Color::LimeGreen << "\nActivators:\n-D-Pad Right + R = Increase Score\n-D-Pad Left + R = Decrease Score" << Color::Red << "\nBefore the end, your score is set to 0 to prevent unfair win online."));
 		battlecodes->Append(new MenuEntry("Coin Score Randomizer", randCoins, "This code allows you to randomize your coin score." << Color::Red << "\nBefore the end, your score is set to 0 to prevent unfair win online."));
@@ -238,7 +239,7 @@ namespace CTRPluginFramework
 		
 		gamemodes = new MenuFolder(""<< Color::Yellow << "[ Game Modes ]", "" << Color::LimeGreen << "Codes for custom game modes.");
 		gamemodes->Append(new MenuEntry("Explosive Grand-Prix", explosiveMode, "This is a custom game mode for Grand-Prix inspired by MKWII and MK8 settings.\nThe only available items are Bob-Omb, Blue Shell, Bullet Bill & Lightning.\n\nEnable this code before starting the Grand-Prix for a better experience." << Color::Red << "\nThis code is disabled online!"));
-		gamemodes->Append(new MenuEntry("Mario Kart DS Balloon Battle Mode", mariokartdsMode, "Everyone starts with 3 balloons, burst your opponents' balloons with items.\nIf all your inflated balloons burst, you lose.\nYou can collect up to 5 balloons if you steal them with a Mushroom or a Star." << Color::Red << "\nThis code is restricted online!"));
+		gamemodes->Append(new MenuEntry("Mario Kart DS Balloon Battle Mode", mariokartdsMode, "Everyone starts with 3 balloons, burst your opponents' balloons with items.\nIf all your inflated balloons burst, you lose.\nYou can collect up to 5 balloons if you steal them with a Mushroom or a Star." << Color::Red << "\nThis code is disabled online!"));
 		gamemodes->Append(new MenuEntry("Survivor Battle Mode", survivorMode, DifficultySetter, "The only available item is the Lightning, you have to survive and win points without blinking delay. You can set the difficulty." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice." << Color::Red << "\nThis code is disabled online!"));
 		gamemodes->Append(new MenuEntry("Countdown Mode", CountdownMode, "You have 2 minutes to race. Every time you hit a player with an item, your time will increase by 3 seconds. You will need to strategically gain more time while still being towards the front of the pack. The player in first place when everyone's time runs out wins!"));
 		gamemodes->Append(new MenuEntry("Drivable 200cc", TwoHundredCCStable, "This version of 200cc has brake drifting by pressing B during drifts (also works in boosts and while in the air), and drifting at lower speeds and in off road. Items will also travel at speeds proportional to the CC." << Color::Red << "\nThis code is disabled online!"));

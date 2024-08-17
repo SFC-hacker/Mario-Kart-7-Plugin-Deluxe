@@ -356,26 +356,16 @@ namespace CTRPluginFramework
 			}
 		}
 	}
-	
-	void	writeRmID(u32 rmID)// Unused
-	{
-		if (Process::Read32(0, offset))
-		{
-			Process::Read32(offset + 0, offset);
-			Process::Read32(offset + 0, offset);
-			Process::Write32(offset + 0, rmID);
-			// For GetrmID, GetPIDs, GetIPs, InfoCopy ... see prv.cpp.
-		}
-	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
 	// Kart codes
 
 	void	alwaysBlinking(MenuEntry *entry)
@@ -421,6 +411,35 @@ namespace CTRPluginFramework
 			{
 				Process::Write32(GetRacePointer() + 0xFF4, 0);
 			}
+		}
+	}
+	
+	void	instantRespawn(MenuEntry *entry)
+	{
+		u32 rpn = 0;
+	
+		if(entry->WasJustActivated())
+		{
+			entry->Name() = Color::LimeGreen << "Instant Respawn";
+		}
+	
+		if (!entry->IsActivated())
+		{
+			entry->Name() = "Instant Respawn";
+		}
+	
+		if (Process::Read32(0xFFFFBF4, offset) && is_in_range(offset, 0x14000000, 0x18000000))
+		{
+			offset += 0xFFFFF930;
+			Process::Read32(offset + 0, offset);
+			offset += 0xFFFFF4AC;
+			if (Process::Read32(offset + 0, rpn) && rpn != 0)
+			Process::Write16(offset + 0, 1);
+		}
+	
+		if (!entry->IsActivated())
+		{
+			entry->Name() = "Instant Respawn";
 		}
 	}
 	
@@ -768,39 +787,31 @@ namespace CTRPluginFramework
 	
 	void	driveBounds(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x2F9848, 0x2F9850, 0x2F9828);
-		u32 u1 = AutoRegion(0x2D9344, 0x2D934C, 0x2D9324);
-		u32 u2 = AutoRegion(0x2D9348, 0x2D9350, 0x2D9328);
-		u32 u3 = AutoRegion(0x2D640C, 0x2D6414, 0x2D63EC);
+		u32 u0 = AutoRegion(0x2D8F28, 0x2D8F30, 0x2D8F08);
+		u32 u1 = AutoRegion(0x2F9848, 0x2F9850, 0x2F9828);
 		
         if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Drive Out Of Bounds";
 		}
-
+		
 		if (Controller::IsKeyDown(Y))
 		{
-			Process::Write32(u0, 0xE3800000);
-			Process::Write32(u1, 0xE3A01000);
-			Process::Write32(u2, 0xE5840C2E);
-			Process::Write32(u3, 0xE3A01001);
+			Process::Write32(u0, 0xE3A00000);
+			Process::Write32(u1, 0xE3800000);
 		}
 		
 		if (Controller::IsKeyDown(Start))
 		{
-			Process::Write32(u0, 0xE3800040);
-			Process::Write32(u1, 0xE3C00001);
-			Process::Write32(u2, 0xE5840C38);
-			Process::Write32(u3, 0xE3A01000);
+			Process::Write32(u0, 0xE3C00004);
+			Process::Write32(u1, 0xE3800040);
 		}
 		
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Drive Out Of Bounds";
-			Process::Write32(u0, 0xE3800040);
-			Process::Write32(u1, 0xE3C00001);
-			Process::Write32(u2, 0xE5840C38);
-			Process::Write32(u3, 0xE3A01000);
+			Process::Write32(u0, 0xE3C00004);
+			Process::Write32(u1, 0xE3800040);
 		}
 	}
 	
@@ -5567,7 +5578,7 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Contact -\n\n" << Color::Yellow << "- Youtube:" << Color::White << "SFC%hacker%\n\n" << Color::Yellow << "- Gbatemp:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Github:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Discord:" << Color::White << "_hckr", choice);
+		Keyboard KB("- Contact -\n\n" << Color::Yellow << "- Youtube:" << Color::White << "SFC%hacker%\n\n" << Color::Yellow << "- Gbatemp:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Github:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Discord:" << Color::White << "_hckr (No friend requests, just message me)", choice);
 		KB.Open();
 	}
 	
@@ -5575,7 +5586,7 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.3\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "01/07/2024 17:28\n\n" << Color::Yellow << "- Codes: " << Color::White << "170\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.4", choice);
+		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.4\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "17/08/2024 12:03\n\n" << Color::Yellow << "- Codes: " << Color::White << "171\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.5", choice);
 		KB.Open();
 	}
 
