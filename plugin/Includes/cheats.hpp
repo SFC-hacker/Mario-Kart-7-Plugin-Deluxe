@@ -53,6 +53,7 @@ namespace CTRPluginFramework {
 	void	itemsKiller(MenuEntry *entry);
 	void	lookBack(MenuEntry *entry);
 	void	itemDespawner(MenuEntry *entry);
+	void	instantRespawn(MenuEntry *entry);
 	void	turningSpeed(MenuEntry *entry);
 	void	disableLuckyShroom(MenuEntry *entry);
 	void	disableFirstPersonView(MenuEntry *entry);
@@ -100,6 +101,9 @@ namespace CTRPluginFramework {
     void	dropLuckyStar(MenuEntry *entry);
     void	dropLuckyBlooper(MenuEntry *entry);
     void	dropMushroom(MenuEntry *entry);
+    void	blueLimit(MenuEntry *entry);
+    void	greenLimit(MenuEntry *entry);
+    void	redLimit(MenuEntry *entry);
     void	starLimit(MenuEntry *entry);
 	void	shroomLimit(MenuEntry *entry);
 	void	bombLimit(MenuEntry *entry);
@@ -116,6 +120,7 @@ namespace CTRPluginFramework {
     void	bananaSize(MenuEntry *entry);
     void	fireballSize(MenuEntry *entry);
     void	bombSize(MenuEntry *entry);
+    void	itemReact(MenuEntry *entry);
 	void	rotatingBananas(MenuEntry *entry);
     void	invisibleLightning(MenuEntry *entry);
     void    LightningColorSetter(MenuEntry *entry);
@@ -218,6 +223,7 @@ namespace CTRPluginFramework {
     void	FiveHundredCCStable(MenuEntry *entry);
     void    contactMe(MenuEntry *entry);
     void    pluginInfo(MenuEntry *entry);
+    void    creditsList(MenuEntry *entry);
 	
 }
 #endif
