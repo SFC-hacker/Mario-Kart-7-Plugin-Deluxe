@@ -36,14 +36,14 @@ namespace CTRPluginFramework
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Abilities ]", "" << Color::LimeGreen << "Codes for abilities.");
 		subfolder->Append(new MenuEntry("Instant Respawn", instantRespawn, "This code allows you to respawn quickly."));
+		subfolder->Append(new MenuEntry("Drive Out Of Bounds", driveBounds, "This code allows you to drive out of the boundaries. This code is not compatible with the Bullet Bill." << Color::LimeGreen << "\nActivator:\n-Y = Enabled\n-Start = Disabled"));
+		subfolder->Append(new MenuEntry("Disable Wall Collisions", disableWalls, "This code allows you to drive through walls. Use it with Drive Out Of Bounds code."));
 		subfolder->Append(new MenuEntry("Better Turning Sensitivity", turningSpeed, "This code allows you to turn faster when pressing A + B."));
 		subfolder->Append(new MenuEntry("Control Bullet Bill", controlKiller, "This code allows you to control the movements of your Bullet Bill, it allows the item use too." << Color::LimeGreen << "\nActivators:\n-D-Pad Right + Y = Enable Bullet Bill\n-D-Pad Left + Y = Disable Bullet Bill\n-B = Stop Bullet Bill\n-A = Accelerate"));
 		subfolder->Append(new MenuEntry("Item Use In Bullet", itemsKiller, "This code allows you to use items while you are in a Bullet Bill."));
 		subfolder->Append(new MenuEntry("Rapidfire", rapidfire, "This code allows you to throw items very fast." << Color::LimeGreen << "\nActivators:\n-X = Fast Fire\n-Left = Normal Fire"));
 		subfolder->Append(new MenuEntry("Look Backward", lookBack, "This code allows you to look backward." << Color::LimeGreen << "\nActivators:\n-B + Y = Backward View\n-A = Classic View"));
 		subfolder->Append(new MenuEntry("Item Despawner", itemDespawner, "You can remove your current spinning or trailed item. Works with Red Shell, Green Shell, Banana, Bob-Omb and all triple items."<< Color::LimeGreen <<"\nActivators:\n-Left = Remove current item\n-X = Throw item."));
-		subfolder->Append(new MenuEntry("Drive Out Of Bounds", driveBounds, "This code allows you to drive out of the boundaries. This code is not compatible with the Bullet Bill." << Color::LimeGreen << "\nActivator:\n-Y = Enabled\n-Start = Disabled"));
-		subfolder->Append(new MenuEntry("Disable Wall Collisions", disableWalls, "This code allows you to drive through walls. Use it with Drive Out Of Bounds code."));
 		subfolder->Append(new MenuEntry("Trick Anywhere", trickAnywhere, "This code allows you to perform tricks anywhere." << Color::LimeGreen << "\nActivator:\n-R = Trick"));
 		subfolder->Append(new MenuEntry("Disable Lucky-7 Mushroom Acceleration", disableLuckyShroom, "This code allows you to disable the acceleration from the Mushroom in the Lucky-7."));
 		subfolder->Append(new MenuEntry("Disable Star Power Acceleration", disableStarAcceleration, "This code allows you to disable the instant acceleration of the Star item."));
@@ -56,7 +56,7 @@ namespace CTRPluginFramework
 		subfolder->Append(new MenuEntry("Inside Drifing Kart", insideDrift, "This code allows you to drift inwards, like certain bikes did in Mario Kart Wii."));
 		subfolder->Append(new MenuEntry("Huge Bunnyhop", hugeBunnyhop, "This code allows you to jump very high."));
 		subfolder->Append(new MenuEntry("Size Changer", sizeChanger, "This code constantly changes the size of the kart." << Color::LimeGreen << "\nActivators:\n-D-Pad Left = Decrease\n-D-Pad Right = Increase"));
-		kartcodes->Append(subfolder);//20
+		kartcodes->Append(subfolder);//21
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Speeds ]", "" << Color::LimeGreen << "Codes for speeds.");
 		subfolder->Append(new MenuEntry("Instant Acceleration", instantAcceleration, "This code allows you to reach the max speed instantly." << Color::LimeGreen << "\nActivator:\n-A"));
@@ -102,13 +102,16 @@ namespace CTRPluginFramework
 		itemcodes->Append(subfolder);//6
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Item Limits ]", "" << Color::LimeGreen << "Codes for item limits.");
+		subfolder->Append(new MenuEntry("Extended Blue Shell Limit", blueLimit, "This code allows you to use more Blue Shells.\n\nEnable this code in a menu or restart the race to apply the change properly."));
+		subfolder->Append(new MenuEntry("Extended Green Shell Limit", greenLimit, "This code allows you use more Green Shells.\n\nEnable this code in a menu or restart the race to apply the change properly."));
+		subfolder->Append(new MenuEntry("Extended Red Shell Limit", redLimit, "This code allows you to use more Red Shells.\n\nEnable this code in a menu or restart the race to apply the change properly."));
 		subfolder->Append(new MenuEntry("Extended Star Limit", starLimit, "This code allows you to drop more Stars on the ground.\n\nEnable this code in a menu or restart the race to apply the change properly."));
 		subfolder->Append(new MenuEntry("Extended Mushroom Limit", shroomLimit, "This code allows you to drop more Mushrooms on the ground.\n\nEnable this code in a menu or restart the race to apply the change properly."));
-		subfolder->Append(new MenuEntry("Extended Bob-Omb Limit", bombLimit, "This code allows you to drop more Bob-Ombs on the ground.\n\nEnable this code in a menu or restart the race to apply the change properly."));
+		subfolder->Append(new MenuEntry("Extended Bob-Omb Limit", bombLimit, "This code allows you to use more Bob-Ombs.\n\nEnable this code in a menu or restart the race to apply the change properly."));
 		subfolder->Append(new MenuEntry("Extended Banana Limit", bananaLimit, "This code allows you to drop more Bananas on the ground.\n\nEnable this code in a menu or restart the race to apply the change properly."));
 		subfolder->Append(new MenuEntry("Extended Fireball Limit", fireballLimit, "This code allows you to drop more Fireballs on the ground.\n\nEnable this code in a menu or restart the race to apply the change properly."));
 		subfolder->Append(new MenuEntry("Extended Blooper Limit", blooperLimit, "This code allows you to drop more Bloopers on the ground.\n\nEnable this code in a menu or restart the race to apply the change properly."));
-		itemcodes->Append(subfolder);//6
+		itemcodes->Append(subfolder);//9
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Item Speeds ]", "" << Color::LimeGreen << "Codes item speeds.");
 		subfolder->Append(new MenuEntry("Bullet Speed Modifier", killerSpeed, "This code allows you to control the speed of the Bullet Bill." << Color::LimeGreen << "\nActivators:\n-X = Very Fast\n-B = Stopped\n-A = Normal Speed"));
@@ -126,6 +129,7 @@ namespace CTRPluginFramework
 		itemcodes->Append(subfolder);//3
 		
 		subfolder = new MenuFolder("" << Color::Yellow << "[ Item Misc ]", "" << Color::LimeGreen << "Codes for various item settings.");
+		subfolder->Append(new MenuEntry("Intangible Items", itemReact, "This code allows you to throw multiples items which won't collide and break between each others."));
 		subfolder->Append(new MenuEntry("Triple Rotating Bananas", rotatingBananas, "This code allows you to get rotating Triple Bananas around your kart like in MK8."));
 		subfolder->Append(new MenuEntry("Invisible Lightning", invisibleLightning, "This code allows you to spoof the darkness and the visual of the Lightning."));
 		subfolder->Append(new MenuEntry("Lightning Color Selector", lightningColor, LightningColorSetter, "This code allows you to configure the color of the Lightning." << Color::LimeGreen << "\nEnable the code and press on the keyboard icon on the bottom screen to set your choice."));
@@ -139,7 +143,7 @@ namespace CTRPluginFramework
 		subfolder->Append(new MenuEntry("No Shell Rotation", noRotation, "This code allows you to remove the rotation of the Green Shell."));
 		subfolder->Append(new MenuEntry("Flying Dropped Star", flyingStar, "This code allows you to increase the height of the dropped Star."));
 		subfolder->Append(new MenuEntry("Inflatable Dropped Star", inflatableStar, "This code allows you to get inflatable dropped Star."));
-		itemcodes->Append(subfolder);//13
+		itemcodes->Append(subfolder);//14
 		menu->Append(itemcodes);
 		
 		racecodes = new MenuFolder(""<< Color::Yellow << "[ Race Codes ]", "" << Color::LimeGreen << "Codes for races.");
@@ -247,10 +251,11 @@ namespace CTRPluginFramework
 		menu->Append(gamemodes);//6
 		
 		helpcodes = new MenuFolder(""<< Color::Orange << "[ Contact & Help! ]", "" << Color::LimeGreen << "Codes to contact plugin's creator for suggestions/bug reports.");
-		helpcodes->Append(new MenuEntry("Contact", nullptr, contactMe, "This code allows you to contact the creator of the plugin."));
-		helpcodes->Append(new MenuEntry("Build Information", nullptr, pluginInfo, "This code brings some information about the plugin."));
-		menu->Append(helpcodes);//2
-		//170
+		helpcodes->Append(new MenuEntry("Contact", nullptr, contactMe, "..."));
+		helpcodes->Append(new MenuEntry("Build Information", nullptr, pluginInfo, "..."));
+		helpcodes->Append(new MenuEntry("Credits", nullptr, creditsList, "..."));
+		menu->Append(helpcodes);//3
+		//176
         menu->Run();
         delete menu;
         return (0);

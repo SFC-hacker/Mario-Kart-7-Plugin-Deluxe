@@ -2234,7 +2234,7 @@ namespace CTRPluginFramework
 		u32 u2 = AutoRegion(0x2F958C, 0x2F9594, 0x2F956C);
 		u32 u3 = AutoRegion(0x2F9590, 0x2F9598, 0x2F9570);
 		
-		if(entry->WasJustActivated())//add activator!
+		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Pop Items";
 		}
@@ -2347,6 +2347,66 @@ namespace CTRPluginFramework
 			Process::Write32(GetOldPointer5D0() + 0x1D0, data);
 		}
 	}
+	
+	void	blueLimit(MenuEntry *entry)
+	{
+		u32 u0 = AutoRegion(0x2D0DC4, 0x2D0DCC, 0x2D0DA4);
+		u32 u1 = AutoRegion(0x3EDA34, 0x3EDA3C, 0x3EDA14);
+		
+		if(entry->WasJustActivated())
+		{
+			entry->Name() = Color::LimeGreen << "Extended Blue Shell Limit";
+			Process::Write32(u0, 0xE3A00032);
+			Process::Write32(u1, 0xE3A010FF);
+        }
+        
+        if (!entry->IsActivated())
+		{
+            entry->Name() = "Extended Blue Shell Limit";
+            Process::Write32(u0, 0xEBFFF25B);
+			Process::Write32(u1, 0x13A01017);
+        }
+    }
+	
+	void	greenLimit(MenuEntry *entry)
+	{
+		u32 u0 = AutoRegion(0x2D0EF4, 0x2D0EFC, 0x2D0ED4);
+		u32 u1 = AutoRegion(0x3EDA34, 0x3EDA3C, 0x3EDA14);
+		
+		if(entry->WasJustActivated())
+		{
+			entry->Name() = Color::LimeGreen << "Extended Green Shell Limit";
+			Process::Write32(u0, 0xE3A00032);
+			Process::Write32(u1, 0xE3A010FF);
+        }
+        
+        if (!entry->IsActivated())
+		{
+            entry->Name() = "Extended Green Shell Limit";
+            Process::Write32(u0, 0xEBFFF25B);
+			Process::Write32(u1, 0x13A01017);
+        }
+    }
+	
+	void	redLimit(MenuEntry *entry)
+	{
+		u32 u0 = AutoRegion(0x2D1040, 0x2D1048, 0x2D1020);
+		u32 u1 = AutoRegion(0x3EDA34, 0x3EDA3C, 0x3EDA14);
+		
+		if(entry->WasJustActivated())
+		{
+			entry->Name() = Color::LimeGreen << "Extended Red Shell Limit";
+			Process::Write32(u0, 0xE3A00032);
+			Process::Write32(u1, 0xE3A010FF);
+        }
+        
+        if (!entry->IsActivated())
+		{
+            entry->Name() = "Extended Red Shell Limit";
+            Process::Write32(u0, 0xEBFFF208);
+			Process::Write32(u1, 0x13A01017);
+        }
+    }
 	
 	void	starLimit(MenuEntry *entry)
 	{
@@ -2673,6 +2733,26 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Bob-Omb Size";
 			Process::Write32(0x665E20, 0x40000000);
 		}
+	}
+	
+	void	itemReact(MenuEntry *entry)
+	{
+		if(entry->WasJustActivated())
+		{
+			entry->Name() = Color::LimeGreen << "Intangible Items";
+		}
+		
+		if (Process::Read32(0x65C528, offset))
+		{
+			offset += 0xFFFFFE3C;
+			Process::Write32(offset + 0, 0);
+		}
+		
+		if (!entry->IsActivated())
+		{
+			entry->Name() = "Intangible Itemss";
+		}
+		
 	}
 	
 	void	rotatingBananas(MenuEntry *entry)
@@ -5586,7 +5666,15 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.4\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "17/08/2024 12:03\n\n" << Color::Yellow << "- Codes: " << Color::White << "171\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.5", choice);
+		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.4\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "19/08/2024 16:58\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.5", choice);
+		KB.Open();
+	}
+	
+	void	creditsList(MenuEntry *entry)
+	{
+		std::vector<std::string>
+		choice = {"Close"};
+		Keyboard KB("- Credits -\n\n" << Color::Yellow << "- Darkflare\n\n- Lukas\n\n- Spooky\n\n- Anto726", choice);
 		KB.Open();
 	}
 
