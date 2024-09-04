@@ -353,6 +353,12 @@ exit:
     {
         ToggleTouchscreenForceOn();
 		//SpmPrv();
+        if (R_SUCCEEDED(plgLdrInit()))
+		{
+            PLGLDR__SetRosalinaMenuBlock(true);
+
+            plgLdrExit();
+		}
     }
 
     // This function is called when the process exits
