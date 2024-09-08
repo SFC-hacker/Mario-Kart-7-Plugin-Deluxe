@@ -315,6 +315,12 @@ exit:
         ToggleTouchscreenForceOn();
 		settings.AllowSearchEngine = false;
 		settings.AllowActionReplay = false;
+        if (R_SUCCEEDED(plgLdrInit()))
+		{
+            PLGLDR__SetRosalinaMenuBlock(true);
+
+            plgLdrExit();
+		}
     }
 	
     void    OnProcessExit(void)
