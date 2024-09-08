@@ -2,11 +2,12 @@
 #define CHEATS_H
 
 #include <CTRPluginFramework.hpp>
-#include "Helpers.hpp"
+//#include "Helpers.hpp"
 #include "Unicode.h"
 
-namespace CTRPluginFramework {
-    using StringVector = std::vector<std::string>;
+namespace CTRPluginFramework
+{
+	using StringVector = std::vector<std::string>;
 	
     struct States
 	{
@@ -31,7 +32,13 @@ namespace CTRPluginFramework {
     extern const std::vector<Countries> g_flags;
 	extern const std::vector<Coordinates> g_coords;
 
-	void	alwaysBlinking(MenuEntry *entry);
+	u32 RmDtc();
+	u8 GetNetwork();
+	u32 GetMatch();
+	u32 GetBattleTime();
+	//u32 GetItmRct();
+
+	void	invincibility(MenuEntry *entry);
     void    alwaysStarPower(MenuEntry *entry);
 	void   	CycleSetter(MenuEntry *entry);
 	void   	starPowerCycler(MenuEntry *entry);
@@ -221,6 +228,7 @@ namespace CTRPluginFramework {
     void	CountdownMode(MenuEntry *entry);
     void	TwoHundredCCStable(MenuEntry *entry);
     void	FiveHundredCCStable(MenuEntry *entry);
+    void    questions(MenuEntry *entry);
     void    contactMe(MenuEntry *entry);
     void    pluginInfo(MenuEntry *entry);
     void    creditsList(MenuEntry *entry);
