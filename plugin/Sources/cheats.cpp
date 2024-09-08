@@ -1,6 +1,7 @@
 #include "CTRPluginFramework.hpp"
 #include "cheats.hpp"
 #include "Helpers/MenuEntryHelpers.hpp"
+#include "Helpers/OSDManager.hpp"
 #include "Unicode.h"
 #include "csvc.h"
 #include "3ds.h"
@@ -12,23 +13,32 @@ namespace CTRPluginFramework
 	using StringVector = std::vector<std::string>;
 	u32 offset = 0, data = 0;
 	static u32 original_speed[0x2D];
-	u32 patch_address = 0;
 	u8 network = 0;
+	u32 cltc = 0;
 	
 	// Custom functions
-
+	
 	bool is_in_range(u32 value, u32 lowerbound, u32 upperbound)
 	{
 		return value > lowerbound && value < upperbound;
 	}
 	
-	static bool WasShown = false;
-
 	bool IsInRace()
 	{
 		if (Process::Read32(0x14000084, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 			if (Process::Read32(offset + 0x316C, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 				return Process::Read32(offset + 0x118, offset) && (offset & 0xFF);
+		return 0;
+	}
+	
+	u32 GetRacePointer()
+	{
+		if (IsInRace())
+			if (Process::Read32(0x140002F4, offset) && is_in_range(offset, 0x14000000, 0x18000000))
+				if (Process::Read32(offset + 0x14, offset) && is_in_range(offset, 0x14000000, 0x18000000))
+					if (Process::Read32(offset + 0x518, offset) && is_in_range(offset, 0x14000000, 0x18000000))
+						if (Process::Read32(offset + 0x1C, offset) && is_in_range(offset, 0x14000000, 0x18000000))
+							return offset;
 		return 0;
 	}
 
@@ -40,34 +50,29 @@ namespace CTRPluginFramework
 		if (titleID == 0x0004000000030600)
 		{
 			if (instruction == 0xE1A00008) return(jpn);
-			//OSD::Notify("JPN", Color::LimeGreen);
 		}
 		
 		else if (titleID == 0x0004000000030700)
 		{
 			if (instruction == 0x10900002) return(eur);
-			//OSD::Notify("EUR", Color::LimeGreen);
 		}
 
 		else if (titleID == 0x0004000000030800)
 		{
 			if (instruction == 0xEBF5F921) return(usa);
-			//OSD::Notify("USA", Color::LimeGreen);
 		}
-		
 		return 0;
 	}
-
-	u32 GetRacePointer()
-	{
-		if (IsInRace())
-			if (Process::Read32(0x140002F4, offset) && is_in_range(offset, 0x14000000, 0x18000000))
-				if (Process::Read32(offset + 0x14, offset) && is_in_range(offset, 0x14000000, 0x18000000))
-					if (Process::Read32(offset + 0x518, offset) && is_in_range(offset, 0x14000000, 0x18000000))
-						if (Process::Read32(offset + 0x1C, offset) && is_in_range(offset, 0x14000000, 0x18000000))
-							return offset;
-		return 0;
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Getters
 
 	u32	GetFNsPointer()
 	{
@@ -109,31 +114,6 @@ namespace CTRPluginFramework
 				if (Process::Read32(offset + 0x23C, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 					if (Process::Read8(offset - 0xF28, total) && is_in_range(offset, 0x14000000, 0x18000000))
 						return total;
-		return 0;
-	}
-	
-	u32 GetBattleTime()
-	{
-		u32 timeout;
-		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000))
-		{
-			if (Process::Read32(offset + 0x80, timeout))
-				return timeout;
-		}
-		return 0;
-	}
-	
-	u8	GetNetwork()
-	{
-		u8 network;
-		if (Process::Read32(0x663D00, offset) && is_in_range(offset, 0x14000000, 0x18000000))
-        {
-            if (Process::Read32(offset + 0x13C, offset))
-            {
-				if (Process::Read8(offset + 0x18, network))
-					return network;
-			}
-        }
 		return 0;
 	}
 
@@ -182,7 +162,16 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0xC4, time);
 		}
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// Writers
 	void	writeItem(u32 item)
 	{
 		if (GetItemPointer())
@@ -290,27 +279,11 @@ namespace CTRPluginFramework
 		}
 	}
 	
-	void writeComment(u8 message)
+	void	writeComment(u8 message)
 	{
-		u32 value = 0;
-		if(Process::Read32(0x663D00, value) && value != 0)
+		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x298, offset))
 		{
-			Process::Read32(value + 0x298, value);
-			Process::Write8(value + 0x66, message);
-		}
-	}
-	
-	void	writeMusic(u8 music)
-	{
-		u32 u0 = AutoRegion(0x3D2D3C, 0x3D2D44, 0x3D2D1C);
-		Process::Write32(u0, 0xE3A00000 + music);
-	}
-	
-	void	writeTime(u32 time)
-	{
-		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x10000000, 0x18000000))
-		{
-			Process::Write8(offset + 0x80, time);
+			Process::Write8(offset + 0x66, message);
 		}
 	}
 	
@@ -358,21 +331,10 @@ namespace CTRPluginFramework
 		}
 	}
 
-
-
-
-
-
-
-
-
-
 	// Kart codes
 
-	void	alwaysBlinking(MenuEntry *entry)
-	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		
+	void	invincibility(MenuEntry *entry)
+	{	
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Invincibility";
@@ -383,23 +345,14 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0x102C, 0xFFFF);
 		}
 		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 		
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Invincibility";
-			Process::Write32(u0, 0xE1510003);
 			
 			if (IsInRace())
 			{
@@ -409,37 +362,26 @@ namespace CTRPluginFramework
 	}
 	
 	void	alwaysStarPower(MenuEntry *entry)
-	{	
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		
+	{
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Star Power";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
-		
+
 		if (IsInRace())
 		{
 			Process::Write16(GetRacePointer() + 0xFF4, 0xFFFF);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Star Power";
-			Process::Write32(u0, 0xE1510003);
-			
+
 			if (IsInRace())
 			{
 				Process::Write32(GetRacePointer() + 0xFF4, 0);
@@ -459,7 +401,6 @@ namespace CTRPluginFramework
 		{ "Slow Cycle", 0x60 },
 		{ "Normal Cycle", 0x50 },
 		{ "Fast Cycle", 0x40 }
-		//{ "Very Fast Cycle", 0x30 } closet cheat risk with such delay?
 	};
 
 	void    CycleSetter(MenuEntry *entry)
@@ -473,32 +414,18 @@ namespace CTRPluginFramework
 		Keyboard keyboard(""<< Color::Red <<"Select your star cycler speed", cycles);
 		int selOpt = keyboard.Open();
 		if (selOpt != -1) *cycle = g_cycles[selOpt].id;
-    }	
+    }
 	
 	void	starPowerCycler(MenuEntry *entry)
 	{
 		u8 cycle = *GetArg<u8>(entry);
 		u8 up = 0;
 		u8 count = 0;
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Star Power Cycler";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace())
 		{
@@ -522,11 +449,15 @@ namespace CTRPluginFramework
 			}
 		}
 		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
+		
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Star Power Cycler";
 			Process::Write8(offset + 0x6BE900, 0);
-			Process::Write32(u0, 0xE1510003);
 			
 			if (IsInRace())
 			{
@@ -545,6 +476,11 @@ namespace CTRPluginFramework
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Always Small";
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	
 		if (IsInRace())
@@ -569,6 +505,11 @@ namespace CTRPluginFramework
 		{
 			Process::Write16(GetRacePointer() + 0x1000, 0x0000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	alwaysBlackKart(MenuEntry *entry)
@@ -587,6 +528,11 @@ namespace CTRPluginFramework
 		{
 			Process::Write16(GetRacePointer() + 0xFF8, 0xFFFF);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	instantBlooperRecovery(MenuEntry *entry)
@@ -604,6 +550,11 @@ namespace CTRPluginFramework
 		if (IsInRace())
 		{
 			Process::Write16(GetRacePointer() + 0xFF8, 0x0000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -627,6 +578,11 @@ namespace CTRPluginFramework
 			Process::Write8(offset + 0, 0x3);
 			Process::Write32(offset + 0x10, 0x3E4CCCCD);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	instantFlatRecovery(MenuEntry *entry)
@@ -647,6 +603,11 @@ namespace CTRPluginFramework
 			Process::Read32(offset + 0, offset);
 			offset += 0xFFFFF26C;
 			Process::Write8(offset + 0, 0);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -669,6 +630,11 @@ namespace CTRPluginFramework
 			offset += 0xFFFFF26C;
 			Process::Write32(offset + 0, 3);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	alwaysGlider(MenuEntry *entry)
@@ -690,6 +656,11 @@ namespace CTRPluginFramework
 			offset += 0xFFFFEE99;
 			Process::Write8(offset + 0, 1);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	alwaysConfused(MenuEntry *entry)
@@ -707,6 +678,11 @@ namespace CTRPluginFramework
 		if (IsInRace())
 		{
 			Process::Write16(GetRacePointer() + 0xFFC, 0xFFFF);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -744,6 +720,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE5850244);
 			Process::Write32(u1, 0x1A0000A5);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	controlKiller(MenuEntry *entry)
@@ -751,7 +732,6 @@ namespace CTRPluginFramework
 		u32 u0 = AutoRegion(0x444C00, 0x444B7C, 0x444B84);
 		u32 u1 = AutoRegion(0x2BE2C0, 0x2BE2C8, 0x2BE2A0);
 		u32 u2 = AutoRegion(0x2E4C3C, 0x2E4C44, 0x2E4C1C);
-		u32 u3 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
@@ -761,26 +741,12 @@ namespace CTRPluginFramework
 			Process::Write32(u2, 0xE3A01000);
 		}
 		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u3, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u3, 0xE1510003);
-            }
-        }
-		
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Control Bullet Bill";
 			Process::Write32(u0, 0xE5D01086);
 			Process::Write32(u1, 0x1A0000A3);
 			Process::Write32(u2, 0xE3A01001);
-			Process::Write32(u3, 0xE1510003);
 			Process::Write32(0x6655A4, 0x41000000);
 		}
 		
@@ -816,31 +782,22 @@ namespace CTRPluginFramework
 		if (Controller::IsKeyDown(B))
 		{
 			Process::Write32(0x6655A4, 0xC1000000);
-		}	
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
-		void	instantRespawn(MenuEntry *entry)
+	void	instantRespawn(MenuEntry *entry)
 	{
 		u32 rpn = 0;
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 	
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Instant Respawn";
 		}
-	
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 	
 		if (Process::Read32(0xFFFFBF4, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
@@ -854,7 +811,11 @@ namespace CTRPluginFramework
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Instant Respawn";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -886,6 +847,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3C00004);
 			Process::Write32(u1, 0xE3800040);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	rapidfire(MenuEntry *entry)
@@ -912,6 +878,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Rapidfire";
 			Process::Write32(u0, 0xE3A08000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	itemsKiller(MenuEntry *entry)
@@ -931,6 +902,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Item Use In Bullet";
 			Process::Write32(u0, 0x1A0000A3);
 			Process::Write32(u1, 0xE3A01001);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -955,6 +931,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Look Backward";
 			Process::Write32(0x663EA4, 0x42480000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -982,6 +963,11 @@ namespace CTRPluginFramework
             entry->Name() = "Item Despawner";
             Process::Write32(u0, 0xE3A00003);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	turningSpeed(MenuEntry *entry)
@@ -997,6 +983,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Better Turning Sensitivity";
 			Process::Write32(0x6657F4, 0x40000000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	disableStarAcceleration(MenuEntry *entry)
@@ -1011,6 +1002,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Disable Star Power Acceleration";
 			Process::Write32(0x6657B4, 0x40400000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1030,6 +1026,11 @@ namespace CTRPluginFramework
 		{
 			Process::Write16(GetRacePointer() + 0xEE90, 0x0000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	disableFirstPersonView(MenuEntry *entry)
@@ -1046,6 +1047,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Disable First Person View";
 			Process::Write32(u0, 0xE5D01086);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1064,6 +1070,11 @@ namespace CTRPluginFramework
 		if (IsInRace())
 		{
 			Process::Write16(GetRacePointer() + 0xFF0, 0xFFFF);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1086,6 +1097,11 @@ namespace CTRPluginFramework
 			offset += 0xFFFFEE9A;
 			Process::Write8(offset + 0, 9);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	disableWalls(MenuEntry *entry)
@@ -1102,6 +1118,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Disable Wall Collisions";
 			Process::Write32(u0, 0xE3A00003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 
@@ -1122,6 +1143,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Autopilot";
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1147,6 +1173,11 @@ namespace CTRPluginFramework
 				Process::Write32(offset + 0, 0xF00);
 			}
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	stopTanooki(MenuEntry *entry)
@@ -1171,6 +1202,11 @@ namespace CTRPluginFramework
 				Process::Write8(offset + 0, 0);
 			}
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	instantMT(MenuEntry *entry)
@@ -1187,6 +1223,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Instant Mini Turbo";
 			Process::Write32(0x665634, 0x435C0000);
 			Process::Write32(0x665638, 0x43E60000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1206,6 +1247,11 @@ namespace CTRPluginFramework
 		{
 			Process::Write16(GetRacePointer() + 0x1036, 0xFFFF);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	hugeBunnyhop(MenuEntry *entry)
@@ -1220,6 +1266,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Huge Bunnyhop";
 			Process::Write32(0x6655D0, 0x3FA66666);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 
@@ -1275,31 +1326,22 @@ namespace CTRPluginFramework
 		{
 			held = false;
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	instantAcceleration(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Instant Acceleration";
 		}
 		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
-		
-		if (IsInRace() && Controller::IsKeyDown(A) && GetRacePointer() && Process::Read32(0x140002F4, data) && Process::Read32(data - 0xA4, data) && Process::Read32(data - 0x2C3B0, data))
+		if(IsInRace() && Controller::IsKeyDown(A) && GetRacePointer() && Process::Read32(0x140002F4, data) && Process::Read32(data - 0xA4, data) && Process::Read32(data - 0x2C3B0, data))
 		{
 			Process::Write32(GetRacePointer() + 0xF2C, data);
 		}
@@ -1307,7 +1349,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Instant Acceleration";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1328,6 +1374,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Instant Backward Acceleration";
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	instantStop(MenuEntry *entry)
@@ -1345,6 +1396,11 @@ namespace CTRPluginFramework
 		if (IsInRace() && Controller::IsKeysDown(A + B) && GetRacePointer())
 		{
 			Process::WriteFloat(GetRacePointer() + 0xF2C, 0);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1379,25 +1435,11 @@ namespace CTRPluginFramework
 	{
 		u32 autom = *GetArg<u32>(entry);
 		u32 hit = 0;
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Automatic Kart Acceleration";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace())
 		{
@@ -1421,7 +1463,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Automatic Kart Acceleration";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1437,6 +1483,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Fast Reverse Speeds";
 			Process::Write32(0x6655A8, 0x40400000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1470,25 +1521,11 @@ namespace CTRPluginFramework
 	void	forceSpeed(MenuEntry *entry)
 	{
 		u32 speed = *GetArg<u32>(entry);
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Configurable Speed";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace() && Controller::IsKeyDown(A) && GetRacePointer() && Process::Read32(0x140002F4, data) && Process::Read32(0x14000014, data) && Process::Read32(0x14000518, data) && Process::Read32(0x1400001C, data))
 		{
@@ -1503,97 +1540,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Configurable Speed";
-			Process::Write32(u0, 0xE1510003);
-		}
-	}
-	
-	bool KeyOSD (const Screen &screen)
-	{
-		if(!screen.IsTop)
-			return false;
-		screen.Draw("Key: " << std::to_string(*(u32 *)(0x5EBF4C)), 150, 10, Color::Yellow);
-		return true;
-	}
-	
-	void	KeySetter(MenuEntry *entry)
-	{
-		u32 key = 0;
-		
-		Keyboard keyboard(""<< Color::Red <<"Type a private key\n\nEnter this key to create or join a private room\n\nPress Start to see and share the key.");
-		keyboard.IsHexadecimal(false);
-		keyboard.SetMaxLength(8);
-		if (keyboard.Open(key) != -1)
-		{
-			Process::Write32(offset + 0x5EBF4C, key);
-		}
-	}
-	
-	void	privateMatchmake(MenuEntry *entry)
-	{
-		u64 titleID = Process::GetTitleID();
-		u32 hook0 = *(u32 *)0x5EBF40;
-		u32 u0 = AutoRegion(0x29FB50, 0x29FB58, 0x29FB38);
-		u32 u1 = AutoRegion(0x2A1474, 0x2A147C, 0x2A145C);
-		
-		if(entry->WasJustActivated())
-		{
-			entry->Name() = Color::LimeGreen << "Private Room Matchmaking";
 		}
 		
-		if (Controller::IsKeyDown(Start))
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
-			OSD::Run(KeyOSD);
-		}
-		
-		else
-		{
-			OSD::Stop(KeyOSD);
-		}
-
-		static const u8 buffer[] =
-		{
-			0x02, 0x10, 0xA0, 0xE1,
-			0x00, 0x20, 0x9F, 0xE5,
-			0x1E, 0xFF, 0x2F, 0xE1,
-		};
-		
-		static const u8 buffer_cancel[] =
-		{
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-			0x00, 0x00, 0x00, 0x00,
-		};
-		
-		if(hook0 == 0)
-		{
-			memcpy((void *)0x5EBF40, buffer, 0xC);
-		}
-
-		if (titleID == 0x0004000000030700)
-		{
-			Process::Write32(u0, 0xE12FFF1E);
-			Process::Write32(u1, 0xEB0D2AB1);
-		}
-		
-		else if (titleID == 0x0004000000030600)
-		{
-			Process::Write32(u0, 0xE12FFF1E);
-			Process::Write32(u1, 0xEB0D2AAF);
-		}
-
-		else if (titleID == 0x0004000000030800)
-		{
-			Process::Write32(u0, 0xE12FFF1E);
-			Process::Write32(u1, 0xEB0D2AB7);
-		}
-	
-		if (!entry->IsActivated())
-		{
-			entry->Name() = "Private Room Matchmaking";
-			memcpy((void *)0x5EBF40, buffer_cancel, 0xC);
-			Process::Write32(u0, 0xE92D41F0);
-			Process::Write32(u1, 0xE1A01002);
-			Process::Write32(offset + 0x5EBF4C, 0);
+			entry->Disable();
 		}
 	}
 	
@@ -1647,6 +1598,11 @@ namespace CTRPluginFramework
 		{
 			Process::WriteFloat(GetRacePointer() + 0xF2C, 0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	moonjump(MenuEntry *entry)
@@ -1670,31 +1626,22 @@ namespace CTRPluginFramework
 		{
 			Process::Write32(GetRacePointer() + 0x3C, 0xC1400000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	freefly(MenuEntry *entry)
 	{
 		u32 u0 = AutoRegion(0x444C00, 0x444B7C, 0x444B84);
-		u32 u1 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Freefly";
 			Process::Write32(u0, 0xE1A00000);
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u1, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u1, 0xE1510003);
-            }
-        }
 	
 		if (Controller::IsKeyDown(R))
 		{
@@ -1777,7 +1724,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Freefly";
 			Process::Write32(u0, 0xE5D01086);
-			Process::Write32(u1, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1822,6 +1773,11 @@ namespace CTRPluginFramework
 				return;
 			}
 			player++;
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1871,6 +1827,11 @@ namespace CTRPluginFramework
 				}
 				Process::Write32(GetRacePointer() + 0x3C, 0);
 			}
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -1934,30 +1895,21 @@ namespace CTRPluginFramework
 			Process::WriteFloat(g_racePointer + 0x18, coordinates[difference][x] / temp[x]); // works fine
 			Process::WriteFloat(g_racePointer + 0x20, coordinates[difference][z] / temp[x]); // works fine
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	blueShellRide(MenuEntry *entry)
 	{
 		u32 dataX = 0, dataY = 0, dataZ = 0, g_racePointer = GetRacePointer();
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Blue Shell Ride";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 
 		if (IsInRace() && Controller::IsKeyDown(DPadLeft))
 		{
@@ -1978,7 +1930,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Blue Shell Ride";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2027,30 +1983,21 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Gravity";
 			Process::Write32(0x665388, 0x3F7C28F6);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	touchCode(MenuEntry *entry)
 	{
 		u32 map = 0;
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Touch Screen Kart Teleporter";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
@@ -2091,7 +2038,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Touch Screen Kart Teleporter";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2123,6 +2074,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Save Slot Teleporter";
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	
@@ -2138,7 +2094,6 @@ namespace CTRPluginFramework
 	
 	void	itemWheelDeluxe(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		static const u8 itemhere[18] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17, 18, 19};
 		static int item = -1;
 		
@@ -2146,19 +2101,6 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = Color::LimeGreen << "Item Cycler";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 
 		if(Controller::IsKeyPressed(DPadRight))
 		{
@@ -2181,13 +2123,16 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Item Cycler";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
 	void	randomShell(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		u8 list[2] = {1, 2};
 		u8	random_shell = list[rand() % (sizeof(list) / sizeof(list[0]))];
 		
@@ -2195,19 +2140,6 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = Color::LimeGreen << "Single Shell Randomizer";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace())
 		{
@@ -2217,47 +2149,23 @@ namespace CTRPluginFramework
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Single Shell Randomizer";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
 	void	masterItemHack(MenuEntry *entry)
 	{
 		u32 u0 = AutoRegion(0x444C00, 0x444B7C, 0x444B84);
-		u32 u1 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		u32 u2 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Classic Item Hack";
 			Process::Write32(u0, 0xE1A00000);
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u2, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u2, 0xE1510003);
-            }
-        }
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u1, 0xE1510001);
-			}
-				
-			else
-			{
-				Process::Write32(u1, 0xE1510003);
-			}
-        }
 		
 		if (Controller::IsKeyDown(DPadLeft))
 		{
@@ -2297,8 +2205,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Classic Item Hack";
 			Process::Write32(u0, 0xE5D01086);
-			Process::Write32(u1, 0xE1510003);
-			Process::Write32(u2, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2344,25 +2255,11 @@ namespace CTRPluginFramework
 	{
 		u8 box = *GetArg<u8>(entry);
 		u32 u0 = AutoRegion(0x2CABE4, 0x2CABEC, 0x2CABC4);
-		u32 u1 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Configurable Item Box";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u1, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u1, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace())
 		{
@@ -2373,7 +2270,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Configurable Item Box";
 			Process::Write32(u0, 0xE0855000);
-			Process::Write32(u1, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2420,26 +2321,12 @@ namespace CTRPluginFramework
 	
 	void	forceItem(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		u8 item = *GetArg<u8>(entry);
 		
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Configurable Item";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (IsInRace())
 		{
@@ -2449,68 +2336,46 @@ namespace CTRPluginFramework
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Configurable Item";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
 	void    randomItems(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		u32 number = Utils::Random(0, 0x14);
 
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Cycle Completely Random Item";
 		}
-	
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		writeItem(number == 0xF || number == 0x10 ? Utils::Random(0, 0xE) : number);
 	
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Cycle Completely Random Item";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
 	void    trulyRandomItems(MenuEntry *entry)
-	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		
+	{	
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Truly Random Items";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 	
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Truly Random Items";
-			Process::Write32(u0, 0xE1510003);
 		}
 	
 		u32 randNumber = Utils::Random(0, 0x14), g_itemPointer = GetItemPointer(), tmp = 0, tmp2 = 0;
@@ -2530,7 +2395,14 @@ namespace CTRPluginFramework
 			alreadyGivenItem = true;
 		}
 		if (tmp3 == 0)
+		{
 			alreadyGivenItem = false;
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	popItems(MenuEntry *entry)
@@ -2565,6 +2437,11 @@ namespace CTRPluginFramework
 			Process::Write32(u2, 0xE3100201);
 			Process::Write32(u3, 0x1A00014D);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	dropItems(MenuEntry *entry)
@@ -2581,6 +2458,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Drop Items";
 			Process::Write32(u0, 0xE5C4B05E);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2599,6 +2481,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Drop Lucky-7 Mushroom";
 			Process::Write32(u0, 0xE3510003);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	dropLuckyStar(MenuEntry *entry)
@@ -2616,6 +2503,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Drop Lucky-7 Star";
 			Process::Write32(u0, 0xE3510004);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	dropLuckyBlooper(MenuEntry *entry)
@@ -2632,6 +2524,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Drop Lucky-7 Blooper";
 			Process::Write32(u0, 0xE351000A);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2651,6 +2548,11 @@ namespace CTRPluginFramework
 		{
 			Process::Read32(GetOldPointer5D0() + 0x1F8, data);
 			Process::Write32(GetOldPointer5D0() + 0x1D0, data);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2672,6 +2574,11 @@ namespace CTRPluginFramework
             Process::Write32(u0, 0xEBFFF25B);
 			Process::Write32(u1, 0x13A01017);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	greenLimit(MenuEntry *entry)
@@ -2692,6 +2599,11 @@ namespace CTRPluginFramework
             Process::Write32(u0, 0xEBFFF25B);
 			Process::Write32(u1, 0x13A01017);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	redLimit(MenuEntry *entry)
@@ -2712,6 +2624,11 @@ namespace CTRPluginFramework
             Process::Write32(u0, 0xEBFFF208);
 			Process::Write32(u1, 0x13A01017);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	starLimit(MenuEntry *entry)
@@ -2729,6 +2646,11 @@ namespace CTRPluginFramework
             entry->Name() = "Extended Star Limit";
             Process::Write32(u0, 0xEBFFFADE);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	shroomLimit(MenuEntry *entry)
@@ -2748,6 +2670,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Extended Mushroom Limit";
 			Process::Write32(u0, 0xEBFFF2FA);
 			Process::Write32(u1, 0xEBFFF2C1);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 
@@ -2769,6 +2696,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xEBFFF3EC);
 			Process::Write32(u1, 0xEBFFF3B3);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	bananaLimit(MenuEntry *entry)
@@ -2789,6 +2721,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xEBFFF46B);
 			Process::Write32(u1, 0xEBFFF432);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	fireballLimit(MenuEntry *entry)
@@ -2806,6 +2743,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Extended Fireball Limit";
 			Process::Write32(u0, 0xEBFFF36E);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	blooperLimit(MenuEntry *entry)
@@ -2823,29 +2765,19 @@ namespace CTRPluginFramework
 			entry->Name() = "Extended Blooper Limit";
 			Process::Write32(u0, 0xEBFFF9B6);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	killerSpeed(MenuEntry *entry)
-	{	
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		
+	{
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Bullet Speed Modifier";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 		
 		if (Controller::IsKeyDown(X))
 		{
@@ -2863,7 +2795,11 @@ namespace CTRPluginFramework
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Bullet Speed Modifier";
-			Process::Write32(u0, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2880,6 +2816,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Fast Blue Shell";
 			Process::Write32(0x666094, 0x41A00000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	stoppedBlueShell(MenuEntry *entry)
@@ -2887,24 +2828,18 @@ namespace CTRPluginFramework
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Stopped Blue Shell";
-			WasShown = false;
 			Process::Write32(0x666094, 0);
-		}
-		
-		if (GetNetwork() == 0x1)
-		{
-			entry->Disable();
-			if(!WasShown)
-			{
-				OSD::Notify("Stopped Blue Shell is disabled online!", Color::Red);
-			}
 		}
 	
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Stopped Blue Shell";
-			WasShown = true;
 			Process::Write32(0x666094, 0x41A00000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2921,6 +2856,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Instant Blue Shell Hit";
 			Process::Write32(0x6660C8, 0x00000036);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	fastGreenShell(MenuEntry *entry)
@@ -2935,6 +2875,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Fast Green Shell";
 			Process::Write32(0x66619C, 0x41300000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -2951,6 +2896,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Stopped Green Shell";
 			Process::Write32(0x66619C, 0x41300000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	giantBanana(MenuEntry *entry)
@@ -2966,9 +2916,14 @@ namespace CTRPluginFramework
 			entry->Name() = "Giant Banana";
 			Process::Write32(0x665CBC, 0x40000000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
-	struct Size // Global item sizes settings
+	struct Size
 	{
 		const char  *name;
 		const u32   id;
@@ -2981,7 +2936,7 @@ namespace CTRPluginFramework
 		{ "Giant Size", 0x40A00000 }
 	};
 
-	void	SizeSetter(MenuEntry *entry) // Global item sizes settings
+	void	SizeSetter(MenuEntry *entry)
     {
         u32 *size = GetArg<u32>(entry);
 		
@@ -3013,6 +2968,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Banana Size";
 			Process::Write32(0x665CBC, 0x40000000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	fireballSize(MenuEntry *entry)
@@ -3033,6 +2993,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Configurable Fireball Size";
 			Process::Write32(0x665F0C, 0x40000000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3055,6 +3020,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Bob-Omb Size";
 			Process::Write32(0x665E20, 0x40000000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	itemReact(MenuEntry *entry)
@@ -3075,6 +3045,10 @@ namespace CTRPluginFramework
 			entry->Name() = "Intangible Items";
 		}
 		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	rotatingBananas(MenuEntry *entry)
@@ -3095,6 +3069,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE59010EC);
 			Process::Write32(u1, 0xE3510001);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	invisibleLightning(MenuEntry *entry)
@@ -3114,6 +3093,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Invisible Lightning";
 			Process::Write32(u0, 0x0A000000);
 			Process::Write32(u1, 0x0A000007);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -3167,6 +3151,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Lightning Color Selector";
 			Process::Write32(u0, 0xE88C000F);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	lightningSelfstriking(MenuEntry *entry)
@@ -3184,6 +3173,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Lightning Selfstriking";
 			Process::Write32(u0, 0xE3A02000);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	blooperSelfstriking(MenuEntry *entry)
@@ -3200,6 +3194,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Blooper Selfstriking";
 			Process::Write32(u0, 0xE3A02001);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -3218,6 +3217,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Never Lose Items";
 			Process::Write32(u0, 0xE92D41F0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	stuckedLucky(MenuEntry *entry)
@@ -3232,6 +3236,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "No Lucky-7 Rotation";
 			Process::Write32(0x665DBC, 0x3D4CCCCD);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3248,6 +3257,11 @@ namespace CTRPluginFramework
 			entry->Name() = "No Lucky-7 Items Rotation";
 			Process::Write32(0x665DC0, 0x41000000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	noBombJump(MenuEntry *entry)
@@ -3262,6 +3276,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "No Bob-Omb Jump";
 			Process::Write32(0x665E40, 0x3F000000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3278,6 +3297,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Jumping Bob-Omb";
 			Process::Write32(0x665E40, 0x3F000000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	noRotation(MenuEntry *entry)
@@ -3292,6 +3316,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "No Shell Rotation";
 			Process::Write32(0x666170, 0x41700000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3308,6 +3337,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Flying Dropped Star";
 			Process::Write32(0x6662BC, 0x40600000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	inflatableStar(MenuEntry *entry)
@@ -3322,6 +3356,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Inflatable Dropped Star";
 			Process::Write32(0x6662C0, 0x40000000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3354,6 +3393,11 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x34, 0);
 			Process::Write32(offset + 0x38, 0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	bool TimeOSD(const Screen &screen)
@@ -3382,6 +3426,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Race Time Displayer";
 			OSD::Stop(TimeOSD);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	removeLakitu(MenuEntry *entry)
@@ -3399,13 +3448,17 @@ namespace CTRPluginFramework
 			entry->Name() = "Remove Lakitu";
 			Process::Write32(u0, 0xE3510000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	driveDuringCountdown(MenuEntry *entry)
 	{
 		u32 u0 = AutoRegion(0x2FA800, 0x2FA808, 0x2FA7E0);
         u32 u1 = AutoRegion(0x2BCAC0, 0x2BCAC8, 0x2BCAA0);
-		u32 u2 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
 		
         if(entry->WasJustActivated())
 		{
@@ -3414,60 +3467,40 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE1A00000);
 		}
 		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u2, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u2, 0xE1510003);
-            }
-        }
-		
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Drive During Countdown";
 			Process::Write32(u0, 0xE3500002);
 			Process::Write32(u1, 0x9A000023);
-			Process::Write32(u2, 0xE1510003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
 	void	noCountdown(MenuEntry *entry)
 	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "No Countdown";
 		}
-		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
 	
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "No Countdown";
-			Process::Write32(u0, 0xE1510003);
 		}
 	
 		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
 			Process::Write8(offset + 0x109, 1);
 			Process::Write8(offset + 0x589, 1);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3486,6 +3519,11 @@ namespace CTRPluginFramework
 		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
 			Process::Write8(offset + 0x589, 1);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3512,6 +3550,11 @@ namespace CTRPluginFramework
 			if (is_in_range(offset, 0x14000000, 0x18000000) && is_in_range(pointer2, 0x14000000, 0x18000000))
 				memcpy((void *)(pointer2 + 0x20), (void*)(offset + 0x20), 24);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	cpuPropeller(MenuEntry *entry)
@@ -3532,10 +3575,16 @@ namespace CTRPluginFramework
 		{
 			Process::Write32(u0, 0xE1A00000);
         }
+		
 		if (Controller::IsKeysDown(DPadLeft))
 		{
 			Process::Write32(u0, 0xE3500000);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	waterEverywhere(MenuEntry *entry)
@@ -3553,6 +3602,11 @@ namespace CTRPluginFramework
 		if (IsInRace() && Process::Read32(0x663954, offset) && is_in_range(offset, 0x14000000, 0x18000000) && Process::Read32(offset + 0x58, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
 			Process::Write32(offset + 0x420, 0x48000000);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3575,6 +3629,11 @@ namespace CTRPluginFramework
 		{
 			writePoint(data);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomPoints(MenuEntry *entry)
@@ -3590,6 +3649,11 @@ namespace CTRPluginFramework
 		}
 		
 		writePoint(Utils::Random(0, 999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	instantWin(MenuEntry *entry)
@@ -3607,6 +3671,11 @@ namespace CTRPluginFramework
 		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000) && Controller::IsKeysDown(Start + DPadDown))
 		{
 			Process::Write32(offset + 0xBBC, 9);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3656,6 +3725,11 @@ namespace CTRPluginFramework
 		{
 			writeCoinScore(0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	battleBalloon (MenuEntry *entry)
@@ -3693,6 +3767,11 @@ namespace CTRPluginFramework
 		{
 			writeBalloonScore(0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randCoins (MenuEntry *entry)
@@ -3713,6 +3792,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Coin Score Randomizer";
 			writeCoinScore(0);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3735,6 +3819,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Balloon Score Randomizer";
 			writeBalloonScore(0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	coinLimit (MenuEntry *entry)
@@ -3755,6 +3844,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE356000A);
 			Process::Write32(u1, 0xE266300A);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	maxTimer(MenuEntry *entry)
@@ -3762,27 +3856,21 @@ namespace CTRPluginFramework
         if(entry->WasJustActivated())
 		{
           entry->Name() = Color::LimeGreen << "Max Timer";
-          WasShown = false;
         }
     
         if (!entry->IsActivated())
 		{
           entry->Name() = "Max Timer";
-          WasShown = true;
         }
-        
-        if (GetNetwork() == 0x1)
-		{
-			entry->Disable();
-			if(!WasShown)
-			{
-				OSD::Notify("Max Timer is disabled online!", Color::Red);
-			}
-		}
     
         if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
 			Process::Write32(offset + 0x80, 0xFFFFFFFF);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 
@@ -3801,6 +3889,11 @@ namespace CTRPluginFramework
 		if (IsInRace() && Process::Read32(0x65C528, offset) && is_in_range(offset, 0x14000000, 0x18000000))
 		{
 			Process::Write32(offset + 0x80, 0);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3849,6 +3942,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Blinking Effect";
 			Process::Write32(0x665734, 0x000000B4);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	antiKouraB(MenuEntry *entry)
@@ -3869,29 +3967,16 @@ namespace CTRPluginFramework
 			Process::Read32(offset + 0x94, offset);
 			Process::Write32(offset + 0x240, 0);
 		}
-		
-		if (GetNetwork() == 0x1 && GetItemPointer())
-		{
-			if(Process::Read32(GetItemPointer() + 0xC8, item) && item == 0x6)
-			{
-				Process::Write32(u0, 0xE1A00000);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1500001);
-			}
-		}
-		
-		if (GetNetwork() == 0)
-		{
-			Process::Write32(u0, 0xE1500001);
-		}
         
         if (!entry->IsActivated())
 		{
 			entry->Name() = "Anti Blue Shell Crash";
 			Process::Write32(u0, 0xE1500001);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -3918,6 +4003,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Automatic Balloons Cycler";
 			writeBalloonAmount(0x3);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -3968,6 +4058,11 @@ namespace CTRPluginFramework
 		{
 			Process::Write32(offset + 0xBDA, bal);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	
@@ -4007,7 +4102,14 @@ namespace CTRPluginFramework
 
 		//if country has states
 		if(!g_flags[choiceflag].countryStates.empty())
+		{
 			writeState(g_flags[choiceflag].countryStates[choicestate].stateID);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	SetCoord(MenuEntry *entry)
@@ -4032,6 +4134,11 @@ namespace CTRPluginFramework
 		{
 			writeLocation(g_coords[choice].id);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomCountry(MenuEntry *entry)
@@ -4048,6 +4155,11 @@ namespace CTRPluginFramework
 	
 		writeFlag(Utils::Random(1, 0xB9));
 		writeState(1);
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomCoordinates(MenuEntry *entry)
@@ -4063,6 +4175,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeLocation(Utils::Random(0, 0xFFFFFFFF));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetFlag(MenuEntry *entry)
@@ -4082,6 +4199,11 @@ namespace CTRPluginFramework
 		if (keyboard.Open(flag) != -1)
 		{
 			writeFlag(flag);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -4103,6 +4225,11 @@ namespace CTRPluginFramework
 		{
 			writeState(state);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetCoordinates(MenuEntry *entry)
@@ -4122,6 +4249,11 @@ namespace CTRPluginFramework
 		if (keyboard.Open(coordinates) != -1)
 		{
 			writeLocation(coordinates);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -4144,6 +4276,11 @@ namespace CTRPluginFramework
 		if (keyboard.Open(vr) != -1)
 		{
 			writeVr(vr);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -4170,7 +4307,14 @@ namespace CTRPluginFramework
 		if (Controller::IsKeyDown(DPadRight))
 			writeVr(666666);
 		if (Controller::IsKeyDown(DPadLeft))
+		{
 			writeVr(777777);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	vrRandomizer(MenuEntry *entry)
@@ -4186,6 +4330,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeVr(Utils::Random(0, 999999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	bool VrOSD (const Screen &screen)
@@ -4214,11 +4363,15 @@ namespace CTRPluginFramework
 			OSD::Run(VrOSD);
 		}
 
-        
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "VR Indicator";
 			OSD::Stop(VrOSD);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -4293,6 +4446,11 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x6C20, mark);
 			Process::Write32(offset + 0x6C24, mark);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	unlockEverything(MenuEntry *entry)
@@ -4315,6 +4473,11 @@ namespace CTRPluginFramework
 			Process::Write8(0x6BB0 + offset, 0x7F);
 			Process::Write8(0x6BB4 + offset, 0x3F);
 			Process::Write8(0x6BB8 + offset, 0xFF);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -4351,6 +4514,11 @@ namespace CTRPluginFramework
 			Process::Write32(value + 0x9DF0, 0x3D3D3D3D);
 			Process::Write32(value + 0x9DF4, 0x3D3D3D3D);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	starReset(MenuEntry *entry)
@@ -4386,6 +4554,11 @@ namespace CTRPluginFramework
 			Process::Write32(value + 0x9DF0, 0);
 			Process::Write32(value + 0x9DF4, 0);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetVrCounter(MenuEntry *entry)
@@ -4407,6 +4580,11 @@ namespace CTRPluginFramework
 		{
 			writeVc(data);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	randomVrCounter(MenuEntry *entry)
@@ -4422,6 +4600,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeVc(Utils::Random(0, 99999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetVictories(MenuEntry *entry)
@@ -4443,6 +4626,11 @@ namespace CTRPluginFramework
 		{
 			writeVictories(data);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomVictories(MenuEntry *entry)
@@ -4458,6 +4646,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeVictories(Utils::Random(0, 99999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetDefeats(MenuEntry *entry)
@@ -4479,6 +4672,11 @@ namespace CTRPluginFramework
 		{
 			writeDefeats(data);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomDefeats(MenuEntry *entry)
@@ -4494,6 +4692,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeDefeats(Utils::Random(0, 99999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetCoins(MenuEntry *entry)
@@ -4515,6 +4718,11 @@ namespace CTRPluginFramework
 		{
 			writeCoins(data);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomCoins(MenuEntry *entry)
@@ -4530,6 +4738,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeCoins(Utils::Random(0, 99999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void    SetStreetpass(MenuEntry *entry)
@@ -4551,6 +4764,11 @@ namespace CTRPluginFramework
 		{
 			writeStreetpass(data);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomStreetpass(MenuEntry *entry)
@@ -4566,6 +4784,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeStreetpass(Utils::Random(0, 99999));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	SetDriver(MenuEntry *entry)
@@ -4616,6 +4839,10 @@ namespace CTRPluginFramework
 			writeDriver(g_drivers[choice].id);
 		}
 		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	randomDriverClass(MenuEntry *entry)
@@ -4631,6 +4858,11 @@ namespace CTRPluginFramework
 		}
 	
 		writeDriver(Utils::Random(0, 22));
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	
@@ -4742,6 +4974,11 @@ namespace CTRPluginFramework
 		{
 			writeComment(message);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	randomMessage(MenuEntry *entry)
@@ -4768,6 +5005,140 @@ namespace CTRPluginFramework
 				Process::Write8(value + 0x66, random_id);
 			}
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
+	}
+	
+	bool KeyOSD (const Screen &screen)
+	{
+		if(!screen.IsTop)
+			return false;
+		screen.Draw("Room: " << std::to_string(*(u32 *)(0x5EBF4C)), 150, 10, Color::Yellow);
+		return true;
+	}
+
+	struct Room
+	{
+		const char *name;
+		const u32 id;
+	};
+
+	static const std::vector<Room> g_rooms =
+	{
+		{ "Room 1", 0x75BCD15 },
+		{ "Room 2", 0x9A2112 },
+		{ "Room 3", 0x3ADE68B1 },
+		{ "Room 4", 0x3E7 }
+	};
+	
+	void KeySetter(MenuEntry *entry)
+	{
+		u32 *room = GetArg<u32>(entry);
+		
+		static StringVector rooms;
+		if (rooms.empty())
+		{
+			for (const Room &i : g_rooms)
+			{
+				rooms.push_back(i.name);
+			}
+			rooms.push_back("Custom Room");
+		}
+
+		Keyboard keyboard("" << Color::Red << "Join a MK7 Plugin Deluxe room :\n\n Press START to check your room ID and share it!", rooms);
+		int pressed = keyboard.Open();
+		
+		if (pressed == -1)
+		{
+			return;
+		}
+		
+		else if (pressed >= rooms.size()-1)
+		{
+			keyboard.GetMessage() = std::string("Type a room ID :");
+			keyboard.Open(*room);
+		}
+		
+		else
+		{
+			*room = g_rooms[pressed].id;
+		}
+	}
+	
+	void	privateMatchmake(MenuEntry *entry)
+	{
+		u32 room = *GetArg<u32>(entry);
+		u64 titleID = Process::GetTitleID();
+		u32 RmDtc = (0, 1, 2, 3, 4, 5, 6);
+		u32 hook0 = *(u32 *)0x5EBF40;
+		u32 u0 = AutoRegion(0x29FB50, 0x29FB58, 0x29FB38);
+		u32 u1 = AutoRegion(0x2A1474, 0x2A147C, 0x2A145C);
+		
+		if(entry->WasJustActivated())
+		{
+			entry->Name() = Color::LimeGreen << "Private Room Matchmaking";
+		}
+		
+		Process::Write32(offset + 0x5EBF4C, room);
+		
+		if (Controller::IsKeyDown(Start))
+		{
+			OSD::Run(KeyOSD);
+		}
+		
+		else
+		{
+			OSD::Stop(KeyOSD);
+		}
+
+		static const u8 buffer[] =
+		{
+			0x02, 0x10, 0xA0, 0xE1,
+			0x00, 0x20, 0x9F, 0xE5,
+			0x1E, 0xFF, 0x2F, 0xE1,
+		};
+		
+		static const u8 buffer_cancel[] =
+		{
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+			0x00, 0x00, 0x00, 0x00,
+		};
+		
+		if(hook0 == 0)
+		{
+			memcpy((void *)0x5EBF40, buffer, 0xC);
+		}
+
+		if (titleID == 0x0004000000030700)
+		{
+			Process::Write32(u0, 0xE12FFF1E);
+			Process::Write32(u1, 0xEB0D2AB1);
+		}
+		
+		else if (titleID == 0x0004000000030600)
+		{
+			Process::Write32(u0, 0xE12FFF1E);
+			Process::Write32(u1, 0xEB0D2AAF);
+		}
+
+		else if (titleID == 0x0004000000030800)
+		{
+			Process::Write32(u0, 0xE12FFF1E);
+			Process::Write32(u1, 0xEB0D2AB7);
+		}
+	
+		if (!entry->IsActivated())
+		{
+			entry->Name() = "Private Room Matchmaking";
+			memcpy((void *)0x5EBF40, buffer_cancel, 0xC);
+			Process::Write32(u0, 0xE92D41F0);
+			Process::Write32(u1, 0xE1A01002);
+			Process::Write32(offset + 0x5EBF4C, 0);
+		}
 	}
 	
 	void	itemSpam(MenuEntry *entry)
@@ -4784,6 +5155,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Disable Item Spam Delay";
 			Process::Write32(u0, 0xE28470F0);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -4802,6 +5178,11 @@ namespace CTRPluginFramework
 			entry->Name() = "High Data Rate";
 			Process::Write32(u0, 0xE1A05001);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	lagElim(MenuEntry *entry)
@@ -4818,6 +5199,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Lag Elimination";
 			Process::Write32(u0, 0x1A000003);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -4836,6 +5222,11 @@ namespace CTRPluginFramework
 			entry->Name() = "No Kart Position Lag";
 			Process::Write32(u0, 0x0A000005);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	pauseOnline(MenuEntry *entry)
@@ -4852,6 +5243,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Pause Menu Online";
 			Process::Write32(u0, 0x0A00001C);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -4871,6 +5267,11 @@ namespace CTRPluginFramework
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "HOME Menu Anywhere";
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -4892,6 +5293,11 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE92D4038);
 			Process::Write32(u1, 0xE3A0280D);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	skipPass(MenuEntry *entry)
@@ -4908,6 +5314,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Skip Streetpass/Spotpass Prompt";
 			Process::Write32(u0, 0xEAFFFF71);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 
@@ -4926,6 +5337,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Skip Live View";
 			Process::Write32(u0, 0xAA000007);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	skipWait(MenuEntry *entry)
@@ -4942,6 +5358,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Skip Please Wait...";
 			Process::Write32(u0, 0x03A00002);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -4962,6 +5383,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Anti VR Crasher";
 			Process::Write32(u0, 0xE24DD00C);
 			Process::Write32(u1, 0xE28DD00C);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -5022,6 +5448,11 @@ namespace CTRPluginFramework
 			memcpy((void *)0x5EBF00, buffer_cancel, 0x18);
 			Process::Write32(u0, 0xE1A04000);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	antiKoura(MenuEntry *entry)
@@ -5042,29 +5473,16 @@ namespace CTRPluginFramework
 			Process::Read32(offset + 0x94, offset);
 			Process::Write32(offset + 0x240, 0);
 		}
-		
-		if (GetNetwork() == 0x1 && GetItemPointer())
-		{
-			if(Process::Read32(GetItemPointer() + 0xC8, item) && item == 0x6)
-			{
-				Process::Write32(u0, 0xE1A00000);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1500001);
-			}
-		}
-		
-		if (GetNetwork() == 0)
-		{
-			Process::Write32(u0, 0xE1500001);
-		}
         
         if (!entry->IsActivated())
 		{
 			entry->Name() = "Anti Blue Shell Crash";
 			Process::Write32(u0, 0xE1500001);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
     }
 	
@@ -5141,6 +5559,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Track Music Changer";
 			Process::Write32(u0, 0xE5900160);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	void	timeTrialGhost(MenuEntry *entry)
@@ -5166,6 +5589,11 @@ namespace CTRPluginFramework
 					Process::Write32(data + 0x24, 0x49000000);
 				}
 			}
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -5222,6 +5650,11 @@ namespace CTRPluginFramework
 					MessageBox("Error\nMii dump failed. Offset:" + offset)();
 		file.Flush();
 		file.Close();
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	
@@ -5273,6 +5706,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Speedometer";
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	struct View
@@ -5320,6 +5758,11 @@ namespace CTRPluginFramework
 		{
 			entry->Name() = "Configurable Field Of View";
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	disableStarMusic(MenuEntry *entry)
@@ -5338,6 +5781,11 @@ namespace CTRPluginFramework
 		if (IsInRace() && GetFNsPointer() && Process::Read8(GetFNsPointer() + 0x1F7, temp) && temp == 1)
 		{
 			Process::Write8(GetFNsPointer() + 0x1F7, 0);
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -5364,6 +5812,11 @@ namespace CTRPluginFramework
 			{
 				Process::Write32(offset + 0x2B4, 0x601);
 			}
+		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
 		}
 	}
 	
@@ -5392,7 +5845,6 @@ namespace CTRPluginFramework
 		
 		if(entry->WasJustActivated())
 		{
-			WasShown = false;
 			entry->Name() = Color::LimeGreen << "Explosive Grand-Prix";
 			Process::Write32(u1, 0xE3A00012);// 18 Bombs
 			Process::Write32(u2, 0xE3A0000A);// 10 Blue Shells
@@ -5400,20 +5852,15 @@ namespace CTRPluginFramework
 	
 		if (!entry->IsActivated())
 		{
-			WasShown = true;
 			entry->Name() = "Explosive Grand-Prix";
 			Process::Write32(u0, 0xE0855000);
 			Process::Write32(u1, 0xEBFFF3B3);
 			Process::Write32(u2, 0xEBFFF2A7);
 		}
 		
-		if (GetNetwork() == 0x1)
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
-			if(!WasShown)
-			{
-				OSD::Notify("Explosive Grand-Prix is disabled online!", Color::Red);
-			}
 		}
 	}
 
@@ -5427,15 +5874,7 @@ namespace CTRPluginFramework
 			entry->Name() = Color::LimeGreen << "Mario Kart DS Balloon Battle Mode";
 		}
 		
-		if (GetNetwork() == 0x1)
-		{
-			Process::Write32(u0, 0x12411001);
-		}
-		
-		if (GetNetwork() == 0)
-		{
-			Process::Write32(u0, 0x12811001);
-		}
+		Process::Write32(u0, 0x12811001);
 		
 		if (Process::Read32(0x65C528, offset))
 		{
@@ -5791,6 +6230,11 @@ namespace CTRPluginFramework
 			entry->Name() = "Mario Kart DS Balloon Battle Mode";
 			Process::Write32(u0, 0x12411001);
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 	
 	struct Difficulty
@@ -5844,6 +6288,11 @@ namespace CTRPluginFramework
             Process::Write8(0x665734, 0xB4);
 			Process::Write8(u1, 0);
         }
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
     }
 	
 	void	CountdownMode(MenuEntry *entry)
@@ -5923,34 +6372,23 @@ namespace CTRPluginFramework
 				return true;
 			});
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	TwoHundredCCStable(MenuEntry *entry)
-	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		
+	{	
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Drivable 200cc";
 		}
 		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
-		
 		if (!entry->IsActivated())
 		{
 			entry->Name() = "Drivable 200cc";
-			Process::Write32(u0, 0xE1510003);
 		}
 	
 		u8 boost = 0;
@@ -5979,34 +6417,23 @@ namespace CTRPluginFramework
 			Process::ReadFloat(GetRacePointer() + 0xF2C, speed);
 			Process::WriteFloat(GetRacePointer() + 0xF2C, (speed - 0.4f));
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 	void	FiveHundredCCStable(MenuEntry *entry)
-	{
-		u32 u0 = AutoRegion(0x468D6C, 0x468CF0, 0x468CEC);
-		
+	{	
 		if(entry->WasJustActivated())
 		{
 			entry->Name() = Color::LimeGreen << "Drivable 500cc";
 		}
 		
-		if (Process::Read32(0x663D00, offset) && Process::Read32(offset + 0x13C, offset))
-        {
-			if (Process::Read8(offset + 0x18, network) && network == 1)
-			{
-				Process::Write32(u0, 0xE1510001);
-			}
-			
-			else
-			{
-				Process::Write32(u0, 0xE1510003);
-            }
-        }
-		
 		if(!entry->IsActivated())
 		{
 			entry->Name() = "Drivable 500cc";
-			Process::Write32(u0, 0xE1510003);
 		}
 	
 		u8 boost = 0;
@@ -6034,6 +6461,11 @@ namespace CTRPluginFramework
 			Process::ReadFloat(GetRacePointer() + 0xF2C, speed);
 			Process::WriteFloat(GetRacePointer() + 0xF2C, (speed - 0.4f));
 		}
+		
+		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		{
+			entry->Disable();
+		}
 	}
 
 
@@ -6045,6 +6477,14 @@ namespace CTRPluginFramework
 
 
 	// Information Codes
+	
+	void	questions(MenuEntry *entry)
+	{
+		std::vector<std::string>
+		choice = {"Close"};
+		Keyboard KB("- Why are the codes disabled when I'm online ? -\n\n" << Color::Yellow << "To prevent cheating in public rooms.\n\n" << Color::Green << "Use Private Room Matchmaking to choose a room.\n\nThen enable the codes you want.", choice);
+		KB.Open();
+	}
 	
 	void	contactMe(MenuEntry *entry)
 	{
@@ -6058,7 +6498,7 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.4\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "19/08/2024 16:58\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.5", choice);
+		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.5\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "08/09/2024 11:16\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.6", choice);
 		KB.Open();
 	}
 	
@@ -6069,5 +6509,4 @@ namespace CTRPluginFramework
 		Keyboard KB("- Credits -\n\n" << Color::Yellow << "- Darkflare\n\n- Lukas\n\n- Spooky\n\n- Anto726", choice);
 		KB.Open();
 	}
-
 }
