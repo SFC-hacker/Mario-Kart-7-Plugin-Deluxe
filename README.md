@@ -3,3 +3,6 @@ Mario Kart 7 Plugin Deluxe, a public and open source plugin.
 
 > [!WARNING]
 > Using such cheat plugin online on Pretendo servers may result in a permanent ban of your console from online services.
+
+> [!TIP]
+> Use the v3.0.5 to use cheat codes in private rooms
