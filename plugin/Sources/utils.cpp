@@ -54,22 +54,6 @@ namespace CTRPluginFramework
 		return 0;
 	}
 	
-	
-	u32 GetMatch()
-	{
-		u32 offset = 0;
-		u32 matching;
-		
-		if (Process::Read32(0x663D04, offset) && Process::Read32(offset + 0x50, offset) && Process::Read32(offset + 0x44, offset))
-		{
-			if (Process::Read32(offset + 0x40, matching) && matching != 0)
-			{
-				return matching;
-			}
-		}
-		return 0;
-	}
-	
 	u32 GetBattleTime()
 	{
 		u32 offset = 0;

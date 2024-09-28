@@ -345,7 +345,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0x102C, 0xFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -373,7 +373,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0xFF4, 0xFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -449,7 +449,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -478,7 +478,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Always Small";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -506,7 +506,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0x1000, 0x0000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -529,7 +529,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0xFF8, 0xFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -549,10 +549,10 @@ namespace CTRPluginFramework
 	
 		if (IsInRace())
 		{
-			Process::Write16(GetRacePointer() + 0xFF8, 0x0000);
+			Process::Write16(GetRacePointer() + 0xFF8, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -579,7 +579,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x10, 0x3E4CCCCD);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -605,7 +605,7 @@ namespace CTRPluginFramework
 			Process::Write8(offset + 0, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -631,7 +631,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0, 3);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -657,7 +657,7 @@ namespace CTRPluginFramework
 			Process::Write8(offset + 0, 1);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -680,7 +680,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0xFFC, 0xFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -721,7 +721,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0x1A0000A5);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -784,7 +784,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6655A4, 0xC1000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -813,7 +813,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Instant Respawn";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -848,7 +848,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE3800040);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -879,7 +879,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3A08000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -904,7 +904,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE3A01001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -933,7 +933,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x663EA4, 0x42480000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -964,7 +964,7 @@ namespace CTRPluginFramework
             Process::Write32(u0, 0xE3A00003);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -984,7 +984,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6657F4, 0x40000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1004,7 +1004,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6657B4, 0x40400000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1027,7 +1027,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0xEE90, 0x0000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1049,7 +1049,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE5D01086);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1072,7 +1072,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0xFF0, 0xFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1098,7 +1098,7 @@ namespace CTRPluginFramework
 			Process::Write8(offset + 0, 9);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1120,7 +1120,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3A00003);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1145,7 +1145,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Autopilot";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1174,7 +1174,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1203,7 +1203,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1225,7 +1225,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665638, 0x43E60000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1248,7 +1248,7 @@ namespace CTRPluginFramework
 			Process::Write16(GetRacePointer() + 0x1036, 0xFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1268,7 +1268,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6655D0, 0x3FA66666);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1327,7 +1327,7 @@ namespace CTRPluginFramework
 			held = false;
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1351,7 +1351,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Instant Acceleration";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1375,7 +1375,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Instant Backward Acceleration";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1398,7 +1398,7 @@ namespace CTRPluginFramework
 			Process::WriteFloat(GetRacePointer() + 0xF2C, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1465,7 +1465,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Automatic Kart Acceleration";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1485,7 +1485,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6655A8, 0x40400000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1542,7 +1542,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Speed";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1599,7 +1599,7 @@ namespace CTRPluginFramework
 			Process::WriteFloat(GetRacePointer() + 0xF2C, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1627,7 +1627,7 @@ namespace CTRPluginFramework
 			Process::Write32(GetRacePointer() + 0x3C, 0xC1400000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1726,7 +1726,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE5D01086);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1775,7 +1775,7 @@ namespace CTRPluginFramework
 			player++;
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1829,7 +1829,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1896,7 +1896,7 @@ namespace CTRPluginFramework
 			Process::WriteFloat(g_racePointer + 0x20, coordinates[difference][z] / temp[x]); // works fine
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1932,7 +1932,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Blue Shell Ride";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -1984,7 +1984,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665388, 0x3F7C28F6);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2040,7 +2040,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Touch Screen Kart Teleporter";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2075,7 +2075,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Save Slot Teleporter";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2125,7 +2125,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Item Cycler";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2151,7 +2151,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Single Shell Randomizer";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2207,7 +2207,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE5D01086);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2272,7 +2272,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE0855000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2338,7 +2338,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Item";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2360,7 +2360,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Cycle Completely Random Item";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2399,7 +2399,7 @@ namespace CTRPluginFramework
 			alreadyGivenItem = false;
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2438,7 +2438,7 @@ namespace CTRPluginFramework
 			Process::Write32(u3, 0x1A00014D);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2460,7 +2460,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE5C4B05E);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2482,7 +2482,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3510003);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2504,7 +2504,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3510004);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2526,7 +2526,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE351000A);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2550,7 +2550,7 @@ namespace CTRPluginFramework
 			Process::Write32(GetOldPointer5D0() + 0x1D0, data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2575,7 +2575,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0x13A01017);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2600,7 +2600,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0x13A01017);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2625,7 +2625,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0x13A01017);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2647,7 +2647,7 @@ namespace CTRPluginFramework
             Process::Write32(u0, 0xEBFFFADE);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2672,7 +2672,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xEBFFF2C1);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2697,7 +2697,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xEBFFF3B3);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2722,7 +2722,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xEBFFF432);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2744,7 +2744,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xEBFFF36E);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2766,7 +2766,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xEBFFF9B6);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2797,7 +2797,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Bullet Speed Modifier";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2817,7 +2817,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x666094, 0x41A00000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2837,7 +2837,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x666094, 0x41A00000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2857,7 +2857,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6660C8, 0x00000036);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2877,7 +2877,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x66619C, 0x41300000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2897,7 +2897,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x66619C, 0x41300000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2917,7 +2917,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665CBC, 0x40000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2969,7 +2969,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665CBC, 0x40000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -2995,7 +2995,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665F0C, 0x40000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3021,7 +3021,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665E20, 0x40000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3045,7 +3045,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Intangible Items";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3070,7 +3070,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE3510001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3095,7 +3095,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0x0A000007);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3152,7 +3152,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE88C000F);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3174,7 +3174,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3A02000);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3196,7 +3196,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3A02001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3218,7 +3218,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE92D41F0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3238,7 +3238,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665DBC, 0x3D4CCCCD);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3258,7 +3258,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665DC0, 0x41000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3278,7 +3278,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665E40, 0x3F000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3298,7 +3298,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665E40, 0x3F000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3318,7 +3318,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x666170, 0x41700000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3338,7 +3338,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6662BC, 0x40600000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3358,7 +3358,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x6662C0, 0x40000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3394,7 +3394,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x38, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3427,7 +3427,7 @@ namespace CTRPluginFramework
 			OSD::Stop(TimeOSD);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3449,7 +3449,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3510000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3474,7 +3474,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0x9A000023);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3498,7 +3498,7 @@ namespace CTRPluginFramework
 			Process::Write8(offset + 0x589, 1);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3521,7 +3521,7 @@ namespace CTRPluginFramework
 			Process::Write8(offset + 0x589, 1);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3551,7 +3551,7 @@ namespace CTRPluginFramework
 				memcpy((void *)(pointer2 + 0x20), (void*)(offset + 0x20), 24);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3581,7 +3581,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE3500000);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3604,7 +3604,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x420, 0x48000000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3630,7 +3630,7 @@ namespace CTRPluginFramework
 			writePoint(data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3650,7 +3650,7 @@ namespace CTRPluginFramework
 		
 		writePoint(Utils::Random(0, 999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3673,7 +3673,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0xBBC, 9);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3726,7 +3726,7 @@ namespace CTRPluginFramework
 			writeCoinScore(0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3768,7 +3768,7 @@ namespace CTRPluginFramework
 			writeBalloonScore(0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3794,7 +3794,7 @@ namespace CTRPluginFramework
 			writeCoinScore(0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3820,7 +3820,7 @@ namespace CTRPluginFramework
 			writeBalloonScore(0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3845,7 +3845,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE266300A);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3868,7 +3868,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x80, 0xFFFFFFFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3891,7 +3891,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x80, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3943,7 +3943,7 @@ namespace CTRPluginFramework
 			Process::Write32(0x665734, 0x000000B4);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -3974,7 +3974,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE1500001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4005,7 +4005,7 @@ namespace CTRPluginFramework
 			writeBalloonAmount(0x3);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4059,7 +4059,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0xBDA, bal);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4106,7 +4106,7 @@ namespace CTRPluginFramework
 			writeState(g_flags[choiceflag].countryStates[choicestate].stateID);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4135,7 +4135,7 @@ namespace CTRPluginFramework
 			writeLocation(g_coords[choice].id);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4156,7 +4156,7 @@ namespace CTRPluginFramework
 		writeFlag(Utils::Random(1, 0xB9));
 		writeState(1);
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4176,7 +4176,7 @@ namespace CTRPluginFramework
 	
 		writeLocation(Utils::Random(0, 0xFFFFFFFF));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4201,7 +4201,7 @@ namespace CTRPluginFramework
 			writeFlag(flag);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4226,7 +4226,7 @@ namespace CTRPluginFramework
 			writeState(state);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4251,7 +4251,7 @@ namespace CTRPluginFramework
 			writeLocation(coordinates);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4278,7 +4278,7 @@ namespace CTRPluginFramework
 			writeVr(vr);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4311,7 +4311,7 @@ namespace CTRPluginFramework
 			writeVr(777777);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4331,7 +4331,7 @@ namespace CTRPluginFramework
 	
 		writeVr(Utils::Random(0, 999999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4369,7 +4369,7 @@ namespace CTRPluginFramework
 			OSD::Stop(VrOSD);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4447,7 +4447,7 @@ namespace CTRPluginFramework
 			Process::Write32(offset + 0x6C24, mark);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4475,7 +4475,7 @@ namespace CTRPluginFramework
 			Process::Write8(0x6BB8 + offset, 0xFF);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4515,7 +4515,7 @@ namespace CTRPluginFramework
 			Process::Write32(value + 0x9DF4, 0x3D3D3D3D);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4555,7 +4555,7 @@ namespace CTRPluginFramework
 			Process::Write32(value + 0x9DF4, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4581,7 +4581,7 @@ namespace CTRPluginFramework
 			writeVc(data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4601,7 +4601,7 @@ namespace CTRPluginFramework
 	
 		writeVc(Utils::Random(0, 99999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4627,7 +4627,7 @@ namespace CTRPluginFramework
 			writeVictories(data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4647,7 +4647,7 @@ namespace CTRPluginFramework
 	
 		writeVictories(Utils::Random(0, 99999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4673,7 +4673,7 @@ namespace CTRPluginFramework
 			writeDefeats(data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4693,7 +4693,7 @@ namespace CTRPluginFramework
 	
 		writeDefeats(Utils::Random(0, 99999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4719,7 +4719,7 @@ namespace CTRPluginFramework
 			writeCoins(data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4739,7 +4739,7 @@ namespace CTRPluginFramework
 	
 		writeCoins(Utils::Random(0, 99999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4765,7 +4765,7 @@ namespace CTRPluginFramework
 			writeStreetpass(data);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4785,7 +4785,7 @@ namespace CTRPluginFramework
 	
 		writeStreetpass(Utils::Random(0, 99999));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4839,7 +4839,7 @@ namespace CTRPluginFramework
 			writeDriver(g_drivers[choice].id);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4859,7 +4859,7 @@ namespace CTRPluginFramework
 	
 		writeDriver(Utils::Random(0, 22));
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -4975,7 +4975,7 @@ namespace CTRPluginFramework
 			writeComment(message);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5006,7 +5006,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5157,7 +5157,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE28470F0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5179,7 +5179,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE1A05001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5201,7 +5201,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0x1A000003);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5223,7 +5223,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0x0A000005);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5245,7 +5245,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0x0A00001C);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5269,7 +5269,7 @@ namespace CTRPluginFramework
 			entry->Name() = "HOME Menu Anywhere";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5294,7 +5294,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE3A0280D);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5316,7 +5316,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xEAFFFF71);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5338,7 +5338,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xAA000007);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5360,7 +5360,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0x03A00002);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5385,7 +5385,7 @@ namespace CTRPluginFramework
 			Process::Write32(u1, 0xE28DD00C);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5449,7 +5449,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE1A04000);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5480,7 +5480,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE1500001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5560,7 +5560,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0xE5900160);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5591,7 +5591,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5651,7 +5651,7 @@ namespace CTRPluginFramework
 		file.Flush();
 		file.Close();
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5707,7 +5707,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Speedometer";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5759,7 +5759,7 @@ namespace CTRPluginFramework
 			entry->Name() = "Configurable Field Of View";
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5783,7 +5783,7 @@ namespace CTRPluginFramework
 			Process::Write8(GetFNsPointer() + 0x1F7, 0);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5814,7 +5814,7 @@ namespace CTRPluginFramework
 			}
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -5858,7 +5858,7 @@ namespace CTRPluginFramework
 			Process::Write32(u2, 0xEBFFF2A7);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -6231,7 +6231,7 @@ namespace CTRPluginFramework
 			Process::Write32(u0, 0x12411001);
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -6289,7 +6289,7 @@ namespace CTRPluginFramework
 			Process::Write8(u1, 0);
         }
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -6373,7 +6373,7 @@ namespace CTRPluginFramework
 			});
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -6418,7 +6418,7 @@ namespace CTRPluginFramework
 			Process::WriteFloat(GetRacePointer() + 0xF2C, (speed - 0.4f));
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -6462,7 +6462,7 @@ namespace CTRPluginFramework
 			Process::WriteFloat(GetRacePointer() + 0xF2C, (speed - 0.4f));
 		}
 		
-		if (GetNetwork() && GetMatch() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
+		if (GetNetwork() && Process::Read32(offset + 0x5EBF4C, cltc) && cltc == 0)
 		{
 			entry->Disable();
 		}
@@ -6498,7 +6498,7 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "SFC@hacker@\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.5\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "08/09/2024 11:16\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.6", choice);
+		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "hckr\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.5\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "28/09/2024 17:31\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.6", choice);
 		KB.Open();
 	}
 	
