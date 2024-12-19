@@ -2,7 +2,6 @@
 #define CHEATS_H
 
 #include <CTRPluginFramework.hpp>
-//#include "Helpers.hpp"
 #include "Unicode.h"
 
 namespace CTRPluginFramework
@@ -32,11 +31,8 @@ namespace CTRPluginFramework
     extern const std::vector<Countries> g_flags;
 	extern const std::vector<Coordinates> g_coords;
 
-	u32 RmDtc();
 	u8 GetNetwork();
-	u32 GetMatch();
 	u32 GetBattleTime();
-	//u32 GetItmRct();
 
 	void	invincibility(MenuEntry *entry);
     void    alwaysStarPower(MenuEntry *entry);
