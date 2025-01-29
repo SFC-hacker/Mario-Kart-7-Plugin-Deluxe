@@ -5865,7 +5865,7 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Contact -\n\n" << Color::Yellow << "- Youtube:" << Color::White << "SFC%hacker%\n\n" << Color::Yellow << "- Gbatemp:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Github:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Discord:" << Color::White << "_hckr", choice);
+		Keyboard KB("- Contact -\n\n" << Color::Yellow << "- Youtube:" << Color::White << "sfc_hckr\n\n" << Color::Yellow << "- Gbatemp:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Github:" << Color::White << "SFC-hacker\n\n" << Color::Yellow << "- Discord:" << Color::White << "_hckr", choice);
 		KB.Open();
 	}
 	
@@ -5873,7 +5873,7 @@ namespace CTRPluginFramework
 	{
 		std::vector<std::string>
 		choice = {"Close"};
-		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "hckr\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.6\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "02/11/2024 18:03\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.7", choice);
+		Keyboard KB("- Build Information -\n\n" << Color::Yellow << "- Creator: " << Color::White << "hckr\n\n" << Color::Yellow << "- Version: " << Color::White << "3.0.6\n\n" << Color::Yellow << "- Last Compiled: " << Color::White << "29/01/2025 11:17\n\n" << Color::Yellow << "- Codes: " << Color::White << "176\n\n" << Color::Yellow << "- Next Update: " << Color::White << "version 3.0.7", choice);
 		KB.Open();
 	}
 	
